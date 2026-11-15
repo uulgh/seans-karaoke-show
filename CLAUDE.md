@@ -47,12 +47,19 @@ in `tests/titel-ontleden.test.js`.
 extensie/                 ← alles wat Firefox laadt (geen bouwstap)
   manifest.json           ← het "paspoort" van de extensie
   achtergrond/            ← achtergrondscript: de ene waarheid (wachtrij, instellingen)
+    achtergrond.js        ←   luisteraars: werkbalkknop, rechtsklikmenu, berichten
+    opslag.js             ←   lezen/schrijven van de toestand in storage.local
+    toevoegen.js          ←   een YouTube-video in de wachtrij zetten
   zijbalk/                ← het regiepaneel op de laptop
-  gedeeld/                ← huisstijl (kleuren, lettertypes, knoppen) voor alle schermen
+  gedeeld/                ← voor alle schermen: huisstijl.css, wachtrij.js (de
+                            toestand en de regels), titel-ontleden.js
   lettertypes/            ← Monoton, Rubik, Inter + licenties/
   iconen/                 ← icoon van de extensie
-  youtube/                ← (vanaf fase 2) ALLE code die met YouTube-pagina's praat
+  youtube/                ← ALLE kennis over YouTube: adressen, gegevens opvragen
+                            en (vanaf stap 4) de code die in YouTube-pagina's draait
 tests/                    ← automatische tests (komen niet in de extensie)
+web-ext-config.mjs        ← instellingen van web-ext (o.a. het vaste testprofiel)
+.testprofiel/             ← het Firefox-profiel van `npm start` (niet in Git)
 ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
 ```
 
@@ -63,8 +70,19 @@ ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
 - Firefox gebruikt bij MV3 `background.scripts` (geen service worker). Het
   achtergrondscript kan door Firefox worden stilgelegd: bewaar toestand dus
   altijd in `browser.storage.local`, nooit alleen in een variabele.
-- **Het achtergrondscript is de enige waarheid.** Zijbalk en spelervenster
-  vragen de toestand op en tonen die; ze bewaren zelf niets.
+- **Het achtergrondscript is de enige waarheid.** Alleen het achtergrondscript
+  schrijft de toestand (sleutel `toestand` in `storage.local`). Zijbalk en
+  spelervenster lezen die sleutel, tekenen opnieuw bij `storage.onChanged` en
+  sturen een bericht (`runtime.sendMessage`, veld `soort`) als er iets moet
+  veranderen. Ze bewaren zelf niets.
+- Korte berichtjes voor de zijbalk ("Toegevoegd: ...") zet het
+  achtergrondscript in de sleutel `melding`.
+- De achtergrond is een **module** (`"type": "module"`); luisteraars staan
+  bovenaan, buiten functies. Code zonder Firefox erin (`gedeeld/wachtrij.js`,
+  `gedeeld/titel-ontleden.js`, `youtube/youtube-adressen.js`) werkt met
+  toestand-in, nieuwe-toestand-uit en heeft tests.
+- Firefox start niet met een relatief pad naar een profiel; daarom rekent
+  `web-ext-config.mjs` het volledige pad uit.
 - **YouTube-code staat apart** in `extensie/youtube/`. Kiezers (selectors)
   voor YouTube-elementen staan samen in één bestand, zodat een wijziging bij
   YouTube op één plek te repareren is.

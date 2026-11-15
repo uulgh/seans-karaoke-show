@@ -2,34 +2,41 @@
   "manifest_version": 3,
   "name": "Sean's Karaoke Show",
   "short_name": "Karaoke Show",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Maakt van je laptop een karaoke-regiepaneel en van een tweede scherm een karaokescherm.",
-
   "icons": {
     "48": "iconen/icoon.svg",
     "96": "iconen/icoon.svg"
   },
-
   "browser_specific_settings": {
     "gecko": {
       "id": "seans-karaoke-show@karafox",
       "strict_min_version": "142.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   },
-
+  "permissions": [
+    "storage",
+    "menus"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
   "background": {
-    "scripts": ["achtergrond/achtergrond.js"]
+    "scripts": [
+      "achtergrond/achtergrond.js"
+    ],
+    "type": "module"
   },
-
   "action": {
     "default_title": "Karaoke-regiepaneel openen of sluiten",
     "default_icon": "iconen/icoon.svg",
     "default_area": "navbar"
   },
-
   "sidebar_action": {
     "default_title": "Sean's Karaoke Show",
     "default_panel": "zijbalk/zijbalk.html",

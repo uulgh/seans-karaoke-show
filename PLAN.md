@@ -34,11 +34,12 @@ Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
 - ✅ **Stap 1 — Artiest en titel uit de videotitel halen**
   ("ABBA - Mamma Mia (Karaoke)" → ABBA / Mamma Mia), met automatische tests
   (`npm test`)
-- ⬜ **Stap 2 — De echte wachtrij**: leeft in het achtergrondscript en wordt
+- ✅ **Stap 2 — De echte wachtrij**: leeft in het achtergrondscript en wordt
   bewaard (`storage.local`); de zijbalk toont de echte wachtrij en de
-  voorbeeldgegevens verdwijnen; het rechtsklikmenu "Zet in de
-  karaoke-wachtrij" voegt een nummer toe; verwijderen werkt al; `npm start`
-  krijgt een vast testprofiel zodat "blijft bewaard" te testen is
+  voorbeeldgegevens zijn weg; het rechtsklikmenu "Zet in de
+  karaoke-wachtrij" voegt een nummer toe (de titel wordt bij YouTube
+  opgevraagd); verwijderen werkt al; de schakelaars onthouden hun stand;
+  `npm start` heeft een vast testprofiel zodat "blijft bewaard" te testen is
 - ⬜ **Stap 3 — Pop-up "In de wachtrij zetten"** met Artiest, Titel en
   Aangevraagd door, plus een knop om artiest en titel om te wisselen
 - ⬜ **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil rechtsboven)

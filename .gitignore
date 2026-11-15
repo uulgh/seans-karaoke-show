@@ -22,3 +22,6 @@ web-ext-artifacts/
 Thumbs.db
 desktop.ini
 *.log
+
+# Het vaste testprofiel van de test-Firefox (npm start)
+.testprofiel/

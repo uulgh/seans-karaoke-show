@@ -90,19 +90,6 @@ body {
   gap: 14px;
 }
 
-.voorbeeldmelding {
-  padding: 8px 12px;
-  border: 1px dashed var(--kleur-rand);
-  border-radius: var(--rond-klein);
-  font-size: 12px;
-  color: var(--kleur-gedempt);
-}
-
-.voorbeeldmelding strong {
-  color: var(--kleur-tekst);
-  font-weight: 600;
-}
-
 /* --- Kaarten "Nu bezig" en "Volgende" -------------------------------------- */
 
 .kaart {
@@ -326,6 +313,24 @@ body {
   background: var(--kleur-kaart);
 }
 
+/* Een nummer dat er net bij is gekomen licht even roze op */
+.regel--nieuw {
+  animation: oplichten 1.8s ease-out;
+}
+
+@keyframes oplichten {
+  0% {
+    border-color: var(--kleur-roze);
+    box-shadow: var(--gloed-roze-vlak);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regel--nieuw {
+    animation: none;
+  }
+}
+
 .regel__greep {
   flex: none;
   display: flex;
@@ -479,4 +484,9 @@ body {
   box-shadow: var(--gloed-cyaan-vlak);
   font-size: 13px;
   text-align: center;
+}
+
+.bericht--fout {
+  border-color: var(--kleur-roze);
+  box-shadow: var(--gloed-roze-vlak);
 }

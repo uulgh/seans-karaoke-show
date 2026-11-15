@@ -10,10 +10,10 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
   video schermvullend.
 - Je laptop blijft stil; het geluid komt alleen van het karaokescherm.
 
-> **Stand van zaken:** fase 1 van 8 is klaar en fase 2 is begonnen. De
-> extensie laadt en de zijbalk is te zien in de huisstijl, met
-> voorbeeldgegevens. De knoppen doen nog niets. Zie [PLAN.md](PLAN.md) voor
-> wat er nog komt.
+> **Stand van zaken:** fase 1 van 8 is klaar en fase 2 is halverwege. Je kunt
+> via het rechtsklikmenu op YouTube nummers in de wachtrij zetten en weer
+> verwijderen, en de wachtrij blijft bewaard. De pop-up, de knop "+ Wachtrij"
+> en het tweede scherm komen nog. Zie [PLAN.md](PLAN.md).
 
 ## Wat je nodig hebt
 
@@ -36,9 +36,18 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
    npm start
    ```
 
-Er opent een aparte, lege Firefox met de extensie er al in. De zijbalk
-"Sean's Karaoke Show" gaat vanzelf open. Zie je hem niet? Klik dan op het
-roze microfoon-icoon in de werkbalk.
+Er opent een aparte test-Firefox met de extensie er al in, op een
+YouTube-pagina met karaokevideo's. De zijbalk "Sean's Karaoke Show" gaat
+vanzelf open. Zie je hem niet? Klik dan op het roze microfoon-icoon in de
+werkbalk.
+
+- De eerste keer vraagt YouTube om cookietoestemming. Maak je keuze; de
+  test-Firefox onthoudt die.
+- **Een nummer toevoegen:** klik met de rechtermuisknop op een video en kies
+  "Zet in de karaoke-wachtrij".
+- De test-Firefox heeft een eigen, vast profiel (de map `.testprofiel`). De
+  wachtrij staat er dus nog als je later opnieuw `npm start` doet. Wil je
+  helemaal opnieuw beginnen, gooi dan de map `.testprofiel` weg.
 
 Tip: sleep de rand van de zijbalk tot hij ongeveer 420 pixels breed is; daar
 is hij voor ontworpen.
@@ -61,7 +70,10 @@ te drukken.
 | --- | --- |
 | `extensie/` | De extensie zelf: alles wat Firefox laadt |
 | `extensie/zijbalk/` | Het regiepaneel |
-| `extensie/gedeeld/` | De huisstijl (kleuren, lettertypes, knoppen) |
+| `extensie/achtergrond/` | Het achtergrondscript: beheert de wachtrij en bewaart hem |
+| `extensie/gedeeld/` | De huisstijl en de regels van de wachtrij |
+| `extensie/youtube/` | Alles wat met YouTube te maken heeft |
+| `tests/` | Automatische tests |
 | `extensie/lettertypes/` | De lettertypes en hun licenties |
 | `ontwerp/` | De ontwerpafbeeldingen |
 
@@ -88,4 +100,6 @@ licentieteksten staan in `extensie/lettertypes/licenties/`.
 ## Privacy
 
 De extensie verzamelt niets en stuurt niets door. De wachtrij en de
-instellingen blijven op je eigen computer staan.
+instellingen blijven op je eigen computer staan. Het enige contact met
+internet is met YouTube zelf: als je een video toevoegt, vraagt de extensie
+bij YouTube de titel van die video op.

@@ -1,12 +1,15 @@
 // Zijbalk van Sean's Karaoke Show: het regiepaneel op de laptop.
 //
-// Dit script doet maar één ding: een "toestand" (wat speelt er, wat staat er
-// in de wachtrij, welke schakelaars staan aan) op het scherm tekenen.
+// De zijbalk bewaart zelf niets. Hij doet twee dingen:
+//   1. De toestand uit de opslag op het scherm tekenen, en opnieuw tekenen
+//      zodra de opslag verandert.
+//   2. Een bericht naar het achtergrondscript sturen als jij iets wilt
+//      veranderen (een nummer verwijderen, een schakelaar omzetten).
 //
-// Fase 1: de toestand komt uit voorbeeld.js, zodat de vormgeving te zien is.
-// Vanaf fase 2 komt de toestand uit het achtergrondscript.
+// Het achtergrondscript past de opslag aan, en daardoor tekent de zijbalk
+// vanzelf opnieuw. Zo loopt wat je ziet nooit uit de pas met wat bewaard is.
 
-import { voorbeeldToestand } from "./voorbeeld.js";
+import { herstel } from "../gedeeld/wachtrij.js";
 
 const element = (id) => document.getElementById(id);
 
@@ -14,7 +17,7 @@ const element = (id) => document.getElementById(id);
 
 // Maakt van 102 seconden de tekst "1:42".
 function alsTijd(seconden) {
-  const heel = Math.max(0, Math.floor(seconden));
+  const heel = Math.max(0, Math.floor(seconden || 0));
   const minuten = Math.floor(heel / 60);
   const rest = String(heel % 60).padStart(2, "0");
   return `${minuten}:${rest}`;
@@ -27,10 +30,21 @@ function tekenNaam(plek, naam) {
   plek.classList.toggle("naam--geen", !heeftNaam);
 }
 
+// Stuurt een opdracht naar het achtergrondscript.
+async function stuur(bericht) {
+  try {
+    return await browser.runtime.sendMessage(bericht);
+  } catch (fout) {
+    console.error("Bericht naar het achtergrondscript is mislukt:", fout);
+    toonBericht("Dat lukte niet. Probeer het nog eens.", "fout");
+    return undefined;
+  }
+}
+
 // --- Tekenen -----------------------------------------------------------------
 
-function tekenSpelerscherm(spelerscherm) {
-  const actief = Boolean(spelerscherm && spelerscherm.actief);
+// Het spelerscherm komt in fase 3; tot die tijd is er nooit een tweede scherm.
+function tekenSpelerscherm(actief) {
   element("scherm-status").classList.toggle("status--actief", actief);
   element("scherm-status-tekst").textContent = actief ? "Tweede scherm actief" : "Geen tweede scherm";
   element("scherm-knop-tekst").textContent = actief ? "Opnieuw plaatsen" : "Spelerscherm openen";
@@ -69,6 +83,10 @@ function tekenVolgende(nummer) {
   tekenNaam(element("volgende-aanvrager"), nummer.aanvrager);
 }
 
+// Welke nummers stonden er bij de vorige keer tekenen al? Daarmee kunnen we
+// een nummer dat er net bij is gekomen even laten oplichten.
+let bekendeIds = null;
+
 function tekenWachtrij(wachtrij) {
   const lijst = element("wachtrij-lijst");
   const sjabloon = element("sjabloon-regel");
@@ -80,6 +98,7 @@ function tekenWachtrij(wachtrij) {
     const regel = sjabloon.content.firstElementChild.cloneNode(true);
     regel.dataset.id = nummer.id;
     regel.querySelector(".regel__nummer").textContent = String(index + 1);
+    if (bekendeIds && !bekendeIds.has(nummer.id)) regel.classList.add("regel--nieuw");
 
     const titel = regel.querySelector(".regel__titel");
     titel.textContent = nummer.titel;
@@ -88,11 +107,12 @@ function tekenWachtrij(wachtrij) {
     const artiest = regel.querySelector(".regel__artiest");
     artiest.textContent = nummer.artiest;
     artiest.title = nummer.artiest;
+    artiest.hidden = !nummer.artiest;
 
     tekenNaam(regel.querySelector(".regel__naam"), nummer.aanvrager);
     regel.querySelector(".etiket").hidden = !nummer.zelfVerplaatst;
 
-    // Duidelijke omschrijving voor schermlezers: "Dancing Queen naar voren".
+    // Duidelijke omschrijving voor schermlezers: "Dancing Queen: naar voren".
     for (const knop of regel.querySelectorAll("[data-actie]")) {
       knop.setAttribute("aria-label", `${nummer.titel}: ${knop.title.toLowerCase()}`);
     }
@@ -104,17 +124,18 @@ function tekenWachtrij(wachtrij) {
   });
 
   lijst.replaceChildren(...regels);
+  bekendeIds = new Set(wachtrij.map((nummer) => nummer.id));
 }
 
 function tekenInstellingen(instellingen) {
-  element("optie-aftellen").checked = Boolean(instellingen.aftellen);
-  element("optie-eerlijk").checked = Boolean(instellingen.eerlijkeBeurt);
-  element("optie-muziek").checked = Boolean(instellingen.achtergrondmuziek);
+  for (const invoer of document.querySelectorAll("[data-instelling]")) {
+    invoer.checked = Boolean(instellingen[invoer.dataset.instelling]);
+  }
 }
 
 // Tekent de hele zijbalk opnieuw aan de hand van de toestand.
 function tekenAlles(toestand) {
-  tekenSpelerscherm(toestand.spelerscherm);
+  tekenSpelerscherm(false);
   tekenNuBezig(toestand.nuBezig);
   tekenVolgende(toestand.wachtrij[0]);
   tekenWachtrij(toestand.wachtrij);
@@ -125,27 +146,61 @@ function tekenAlles(toestand) {
 
 let berichtKlok;
 
-function toonBericht(tekst) {
+function toonBericht(tekst, soort = "info") {
   const bericht = element("bericht");
   bericht.textContent = tekst;
+  bericht.classList.toggle("bericht--fout", soort === "fout");
   bericht.hidden = false;
   clearTimeout(berichtKlok);
+  // Langere berichten blijven iets langer staan.
   berichtKlok = setTimeout(() => {
     bericht.hidden = true;
-  }, 2600);
+  }, 2600 + tekst.length * 30);
 }
 
-// --- Fase 1: knoppen doen nog niets -------------------------------------------
-// Elke knop die nog niet werkt heeft in de HTML data-fase="3" of "4". Een klik
-// laat zien in welke fase hij gaat werken. Dit verdwijnt stap voor stap.
+// Het achtergrondscript zet meldingen in de opslag ("Toegevoegd: Mamma Mia").
+// We tonen ze alleen als ze vers zijn, niet als de zijbalk een uur later opengaat.
+function toonMelding(melding) {
+  if (!melding || typeof melding.tekst !== "string") return;
+  if (Date.now() - melding.tijd > 6000) return;
+  toonBericht(melding.tekst, melding.soort);
+}
+
+// --- Klikken en schakelen -------------------------------------------------------
 
 document.addEventListener("click", (gebeurtenis) => {
-  const knop = gebeurtenis.target.closest("button[data-fase]");
+  const knop = gebeurtenis.target.closest("button");
   if (!knop) return;
-  toonBericht(`Deze knop gaat werken in fase ${knop.dataset.fase}.`);
+
+  // Verwijderen werkt al.
+  if (knop.dataset.actie === "verwijderen") {
+    const regel = knop.closest(".regel");
+    if (regel) stuur({ soort: "nummer-verwijderen", id: regel.dataset.id });
+    return;
+  }
+
+  // Knoppen die nog niet werken hebben in de HTML data-fase="3" of "4".
+  if (knop.dataset.fase) {
+    toonBericht(`Deze knop gaat werken in fase ${knop.dataset.fase}.`);
+  }
+});
+
+document.addEventListener("change", (gebeurtenis) => {
+  const invoer = gebeurtenis.target.closest("[data-instelling]");
+  if (!invoer) return;
+  stuur({ soort: "instelling-zetten", naam: invoer.dataset.instelling, waarde: invoer.checked });
 });
 
 // --- Start ---------------------------------------------------------------------
 
-element("voorbeeldmelding").hidden = false;
-tekenAlles(voorbeeldToestand);
+// Opnieuw tekenen zodra de opslag verandert.
+browser.storage.onChanged.addListener((wijzigingen, gebied) => {
+  if (gebied !== "local") return;
+  if (wijzigingen.toestand) tekenAlles(herstel(wijzigingen.toestand.newValue));
+  if (wijzigingen.melding) toonMelding(wijzigingen.melding.newValue);
+});
+
+// En één keer tekenen bij het openen van de zijbalk.
+const opgeslagen = await browser.storage.local.get(["toestand", "melding"]);
+tekenAlles(herstel(opgeslagen.toestand));
+toonMelding(opgeslagen.melding);

@@ -35,10 +35,6 @@
 
       <!-- ===== Het deel dat kan scrollen ===== -->
       <main class="inhoud">
-        <p class="voorbeeldmelding" id="voorbeeldmelding" hidden>
-          <strong>Voorbeeldgegevens.</strong> Zo gaat het eruitzien. De knoppen werken vanaf de volgende fases.
-        </p>
-
         <!-- NU BEZIG -->
         <section class="kaart" aria-labelledby="nu-kop">
           <h2 class="kaart__label kaart__label--cyaan" id="nu-kop">
@@ -96,9 +92,7 @@
             <p class="nummer__artiest" id="volgende-artiest"></p>
             <p class="nummer__wie">Gevraagd door <span class="naam" id="volgende-aanvrager"></span></p>
           </div>
-          <p class="kaart__leeg" id="volgende-leeg" hidden>
-            Nog geen nummers. Zoek op YouTube een karaokevideo en klik op "+ Wachtrij".
-          </p>
+          <p class="kaart__leeg" id="volgende-leeg" hidden>Nog geen nummers in de wachtrij.</p>
 
           <button type="button" class="knop knop--hoofd knop--start" id="knop-start" data-fase="3">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" /></svg>
@@ -106,7 +100,7 @@
           </button>
 
           <label class="vinkje">
-            <input type="checkbox" class="vinkje__invoer" id="optie-aftellen" />
+            <input type="checkbox" class="vinkje__invoer" id="optie-aftellen" data-instelling="aftellen" />
             <span class="vinkje__vak" aria-hidden="true"></span>
             <span>Eerst 5 tellen aftellen op het tweede scherm</span>
           </label>
@@ -121,13 +115,16 @@
             </h2>
             <label class="schakelaar">
               <span class="schakelaar__tekst">Eerlijke beurt</span>
-              <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-eerlijk" />
+              <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-eerlijk" data-instelling="eerlijkeBeurt" />
               <span class="schakelaar__spoor" aria-hidden="true"></span>
             </label>
           </div>
 
           <ol class="wachtrij__lijst" id="wachtrij-lijst"></ol>
-          <p class="kaart__leeg" id="wachtrij-leeg" hidden>De wachtrij is leeg.</p>
+          <p class="kaart__leeg" id="wachtrij-leeg" hidden>
+            De wachtrij is leeg. Klik op YouTube met de rechtermuisknop op een video en kies "Zet in de
+            karaoke-wachtrij".
+          </p>
         </section>
       </main>
 
@@ -138,7 +135,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v10.3a3.5 3.5 0 1 0 2 3.2V8h6V4H9z" /></svg>
             Achtergrondmuziek
           </span>
-          <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-muziek" />
+          <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-muziek" data-instelling="achtergrondmuziek" />
           <span class="schakelaar__spoor" aria-hidden="true"></span>
         </label>
       </footer>
@@ -180,7 +177,6 @@
             type="button"
             class="knop knop--icoon knop--weg"
             data-actie="verwijderen"
-            data-fase="4"
             title="Verwijderen"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">

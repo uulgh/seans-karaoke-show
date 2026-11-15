@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sean's Karaoke Show</title>
+    <link rel="stylesheet" href="../gedeeld/huisstijl.css" />
+    <link rel="stylesheet" href="zijbalk.css" />
+  </head>
+  <body>
+    <div class="paneel">
+      <!-- ===== Kop: logo, status van het tweede scherm, knop om te verplaatsen ===== -->
+      <header class="kop">
+        <h1 class="logo" aria-label="Sean's Karaoke Show">
+          <span class="logo__naam" aria-hidden="true">Sean's</span>
+          <span class="logo__show" aria-hidden="true">Karaoke Show</span>
+        </h1>
+
+        <div class="kop__scherm">
+          <p class="status" id="scherm-status">
+            <span class="status__stip" aria-hidden="true"></span>
+            <span id="scherm-status-tekst">Tweede scherm actief</span>
+          </p>
+          <button type="button" class="knop knop--compact" id="scherm-knop" data-fase="3">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6v2h3v2H7v-2h3v-2H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v8h14V6H5z"
+              />
+            </svg>
+            <span id="scherm-knop-tekst">Opnieuw plaatsen</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ===== Het deel dat kan scrollen ===== -->
+      <main class="inhoud">
+        <p class="voorbeeldmelding" id="voorbeeldmelding" hidden>
+          <strong>Voorbeeldgegevens.</strong> Zo gaat het eruitzien. De knoppen werken vanaf de volgende fases.
+        </p>
+
+        <!-- NU BEZIG -->
+        <section class="kaart" aria-labelledby="nu-kop">
+          <h2 class="kaart__label kaart__label--cyaan" id="nu-kop">
+            <span class="kaart__puls" id="nu-puls" aria-hidden="true"></span>Nu bezig
+          </h2>
+
+          <div id="nu-gevuld">
+            <p class="nummer__titel" id="nu-titel"></p>
+            <p class="nummer__artiest" id="nu-artiest"></p>
+            <p class="nummer__wie">Gevraagd door <span class="naam" id="nu-aanvrager"></span></p>
+
+            <div class="voortgang">
+              <div
+                class="voortgang__balk"
+                id="nu-balk"
+                role="progressbar"
+                aria-label="Voortgang van het nummer"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <div class="voortgang__vulling" id="nu-vulling"></div>
+              </div>
+              <div class="voortgang__tijd">
+                <span id="nu-positie">0:00</span>
+                <span id="nu-duur">0:00</span>
+              </div>
+            </div>
+
+            <div class="knoppenrij">
+              <button type="button" class="knop" id="knop-pauze" data-fase="4">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+                Pauze
+              </button>
+              <button type="button" class="knop" id="knop-stop" data-fase="4">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
+                Stop
+              </button>
+              <button type="button" class="knop" id="knop-overslaan" data-fase="4">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5l9 7-9 7zM16 5h2.5v14H16z" /></svg>
+                Overslaan
+              </button>
+            </div>
+          </div>
+
+          <p class="kaart__leeg" id="nu-leeg" hidden>Er speelt nu niets.</p>
+        </section>
+
+        <!-- VOLGENDE -->
+        <section class="kaart kaart--volgende" aria-labelledby="volgende-kop">
+          <h2 class="kaart__label kaart__label--roze" id="volgende-kop">Volgende</h2>
+
+          <div id="volgende-gevuld">
+            <p class="nummer__titel" id="volgende-titel"></p>
+            <p class="nummer__artiest" id="volgende-artiest"></p>
+            <p class="nummer__wie">Gevraagd door <span class="naam" id="volgende-aanvrager"></span></p>
+          </div>
+          <p class="kaart__leeg" id="volgende-leeg" hidden>
+            Nog geen nummers. Zoek op YouTube een karaokevideo en klik op "+ Wachtrij".
+          </p>
+
+          <button type="button" class="knop knop--hoofd knop--start" id="knop-start" data-fase="3">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" /></svg>
+            Start
+          </button>
+
+          <label class="vinkje">
+            <input type="checkbox" class="vinkje__invoer" id="optie-aftellen" />
+            <span class="vinkje__vak" aria-hidden="true"></span>
+            <span>Eerst 5 tellen aftellen op het tweede scherm</span>
+          </label>
+        </section>
+
+        <!-- WACHTRIJ -->
+        <section class="wachtrij" aria-labelledby="wachtrij-kop">
+          <div class="wachtrij__kop">
+            <h2 class="wachtrij__titel" id="wachtrij-kop">
+              Wachtrij
+              <span class="aantal" id="wachtrij-aantal">0</span>
+            </h2>
+            <label class="schakelaar">
+              <span class="schakelaar__tekst">Eerlijke beurt</span>
+              <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-eerlijk" />
+              <span class="schakelaar__spoor" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <ol class="wachtrij__lijst" id="wachtrij-lijst"></ol>
+          <p class="kaart__leeg" id="wachtrij-leeg" hidden>De wachtrij is leeg.</p>
+        </section>
+      </main>
+
+      <!-- ===== Voet: achtergrondmuziek ===== -->
+      <footer class="voet">
+        <label class="schakelaar schakelaar--breed">
+          <span class="schakelaar__tekst voet__tekst">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v10.3a3.5 3.5 0 1 0 2 3.2V8h6V4H9z" /></svg>
+            Achtergrondmuziek
+          </span>
+          <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-muziek" />
+          <span class="schakelaar__spoor" aria-hidden="true"></span>
+        </label>
+      </footer>
+
+      <!-- Kort berichtje onderin, bijvoorbeeld "Deze knop werkt vanaf fase 3" -->
+      <p class="bericht" id="bericht" role="status" aria-live="polite" hidden></p>
+    </div>
+
+    <!-- Sjabloon voor één regel in de wachtrij. Het script maakt hier kopieën van. -->
+    <template id="sjabloon-regel">
+      <li class="regel">
+        <span class="regel__greep" title="Slepen om te verplaatsen" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="6" r="1.7" />
+            <circle cx="15" cy="6" r="1.7" />
+            <circle cx="9" cy="12" r="1.7" />
+            <circle cx="15" cy="12" r="1.7" />
+            <circle cx="9" cy="18" r="1.7" />
+            <circle cx="15" cy="18" r="1.7" />
+          </svg>
+        </span>
+        <span class="regel__nummer"></span>
+        <div class="regel__tekst">
+          <span class="regel__titel"></span>
+          <span class="regel__artiest"></span>
+          <span class="regel__wie">
+            <span class="naam regel__naam"></span>
+            <span class="etiket" hidden>zelf verplaatst</span>
+          </span>
+        </div>
+        <div class="regel__knoppen">
+          <button type="button" class="knop knop--icoon" data-actie="omhoog" data-fase="4" title="Naar voren">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 8h-4.5v6h-5v-6H5z" /></svg>
+          </button>
+          <button type="button" class="knop knop--icoon" data-actie="omlaag" data-fase="4" title="Naar achteren">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l-7-8h4.5V5h5v6H19z" /></svg>
+          </button>
+          <button
+            type="button"
+            class="knop knop--icoon knop--weg"
+            data-actie="verwijderen"
+            data-fase="4"
+            title="Verwijderen"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 3h6l1 2h4v2H4V5h4l1-2zM6 9h12l-.9 11.1A2 2 0 0 1 15.1 22H8.9a2 2 0 0 1-2-1.9L6 9z" />
+            </svg>
+          </button>
+        </div>
+      </li>
+    </template>
+
+    <script type="module" src="zijbalk.js"></script>
+  </body>
+</html>

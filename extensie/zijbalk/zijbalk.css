@@ -1,0 +1,482 @@
+/* ==========================================================================
+   Zijbalk — het regiepaneel op de laptop.
+   Ontworpen voor ongeveer 420 px breed, maar werkt ook smaller.
+   Kleuren en knoppen komen uit ../gedeeld/huisstijl.css.
+   ========================================================================== */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--kleur-zijbalk);
+  overflow: hidden;
+}
+
+/* Kop bovenaan, voet onderaan, het midden scrolt */
+.paneel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+}
+
+/* --- Kop ------------------------------------------------------------------ */
+
+.kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid var(--kleur-rand);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(255 79 163 / 0.13), transparent 60%),
+    radial-gradient(120% 140% at 100% 0%, rgb(61 220 235 / 0.09), transparent 55%);
+}
+
+.kop__scherm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Label "Tweede scherm actief" */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--kleur-gedempt);
+  white-space: nowrap;
+}
+
+.status__stip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--kleur-gedempt);
+}
+
+.status--actief {
+  color: var(--kleur-cyaan);
+}
+
+.status--actief .status__stip {
+  background: var(--kleur-cyaan);
+  box-shadow: var(--gloed-cyaan-vlak);
+}
+
+.knop--compact {
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+/* --- Midden ---------------------------------------------------------------- */
+
+.inhoud {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.voorbeeldmelding {
+  padding: 8px 12px;
+  border: 1px dashed var(--kleur-rand);
+  border-radius: var(--rond-klein);
+  font-size: 12px;
+  color: var(--kleur-gedempt);
+}
+
+.voorbeeldmelding strong {
+  color: var(--kleur-tekst);
+  font-weight: 600;
+}
+
+/* --- Kaarten "Nu bezig" en "Volgende" -------------------------------------- */
+
+.kaart {
+  padding: 14px 16px 16px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: var(--rond);
+  background: var(--kleur-kaart);
+}
+
+.kaart--volgende {
+  border-color: var(--kleur-roze);
+  box-shadow:
+    0 0 18px rgb(255 79 163 / 0.22),
+    inset 0 0 22px rgb(255 79 163 / 0.06);
+}
+
+.kaart__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--letter-kop);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kleur-gedempt);
+}
+
+.kaart__label--cyaan {
+  color: var(--kleur-cyaan);
+  text-shadow: var(--gloed-cyaan-tekst);
+}
+
+.kaart__label--roze {
+  color: var(--kleur-roze);
+  text-shadow: var(--gloed-roze-tekst);
+}
+
+/* Kloppend bolletje naast "Nu bezig" */
+.kaart__puls {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--kleur-cyaan);
+  box-shadow: var(--gloed-cyaan-vlak);
+  animation: kloppen 1.6s ease-in-out infinite;
+}
+
+@keyframes kloppen {
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaart__puls {
+    animation: none;
+  }
+}
+
+.kaart__leeg {
+  padding: 6px 0;
+  color: var(--kleur-gedempt);
+}
+
+.nummer__titel {
+  font-family: var(--letter-kop);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.nummer__artiest {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--kleur-gedempt);
+  overflow-wrap: anywhere;
+}
+
+.nummer__wie {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--kleur-gedempt);
+  overflow-wrap: anywhere;
+}
+
+/* --- Voortgangsbalk --------------------------------------------------------- */
+
+.voortgang {
+  margin-top: 14px;
+}
+
+.voortgang__balk {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--kleur-rand);
+  overflow: hidden;
+}
+
+.voortgang__vulling {
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--kleur-cyaan);
+  box-shadow: var(--gloed-cyaan-vlak);
+  transition: width 0.4s linear;
+}
+
+.voortgang__tijd {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--kleur-gedempt);
+}
+
+/* --- Knoppen in de kaarten -------------------------------------------------- */
+
+.knoppenrij {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.knoppenrij .knop {
+  padding: 0 6px;
+  min-width: 0;
+}
+
+/* Op een smalle zijbalk komt het icoon boven de tekst, zodat "Overslaan" past */
+@media (max-width: 350px) {
+  .knoppenrij .knop {
+    flex-direction: column;
+    gap: 2px;
+    min-height: 54px;
+    padding: 6px 2px;
+    font-size: 12px;
+  }
+}
+
+.knop--start {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 14px;
+  border-radius: var(--rond);
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.knop--start svg {
+  width: 22px;
+  height: 22px;
+}
+
+.kaart--volgende .vinkje {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--kleur-tekst);
+}
+
+/* --- Wachtrij --------------------------------------------------------------- */
+
+.wachtrij {
+  margin-top: 4px;
+}
+
+.wachtrij__kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+}
+
+.wachtrij__titel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--letter-kop);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.aantal {
+  min-width: 26px;
+  padding: 1px 8px;
+  border: 1px solid var(--kleur-cyaan);
+  border-radius: 999px;
+  font-family: var(--letter-tekst);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--kleur-cyaan);
+}
+
+.wachtrij .schakelaar__tekst {
+  font-size: 13px;
+  color: var(--kleur-gedempt);
+}
+
+.wachtrij__lijst {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.regel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 4px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 12px;
+  background: var(--kleur-kaart);
+}
+
+.regel__greep {
+  flex: none;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 2px;
+  color: var(--kleur-gedempt);
+  opacity: 0.7;
+  cursor: grab;
+}
+
+.regel__greep svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.regel__greep:hover {
+  opacity: 1;
+  color: var(--kleur-cyaan);
+}
+
+.regel__nummer {
+  flex: none;
+  min-width: 20px;
+  font-family: var(--letter-kop);
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--kleur-cyaan);
+  text-shadow: var(--gloed-cyaan-tekst);
+}
+
+.regel__tekst {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.regel__titel,
+.regel__artiest {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.regel__titel {
+  font-family: var(--letter-kop);
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.regel__artiest {
+  font-size: 12.5px;
+  color: var(--kleur-gedempt);
+}
+
+.regel__wie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  font-size: 12.5px;
+}
+
+.regel__naam {
+  overflow-wrap: anywhere;
+}
+
+/* Label "zelf verplaatst" */
+.etiket {
+  padding: 0 7px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: nowrap;
+  color: var(--kleur-gedempt);
+}
+
+.regel__knoppen {
+  flex: none;
+  display: flex;
+  gap: 4px;
+}
+
+.knop--weg:hover {
+  border-color: var(--kleur-roze);
+  color: var(--kleur-roze);
+}
+
+.knop--weg:active {
+  background: rgb(255 79 163 / 0.12);
+}
+
+/* Op een heel smalle zijbalk komen de knoppen onder de tekst te staan */
+@media (max-width: 330px) {
+  .regel {
+    flex-wrap: wrap;
+  }
+
+  .regel__knoppen {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* --- Voet: achtergrondmuziek ------------------------------------------------- */
+
+.voet {
+  padding: 6px 16px;
+  border-top: 1px solid var(--kleur-rand);
+  background: var(--kleur-zijbalk);
+}
+
+.schakelaar--breed {
+  display: flex;
+  justify-content: space-between;
+  min-height: 48px;
+}
+
+.voet__tekst {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--letter-kop);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.voet__tekst svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--kleur-cyaan);
+}
+
+/* --- Kort berichtje onderin --------------------------------------------------- */
+
+.bericht {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 72px;
+  padding: 10px 14px;
+  border: 1px solid var(--kleur-cyaan);
+  border-radius: var(--rond-klein);
+  background: var(--kleur-achtergrond);
+  box-shadow: var(--gloed-cyaan-vlak);
+  font-size: 13px;
+  text-align: center;
+}

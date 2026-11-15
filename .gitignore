@@ -1,0 +1,24 @@
+# Hulpmiddelen die npm zelf opnieuw kan downloaden
+node_modules/
+
+# Ingepakte versies van de extensie (worden gemaakt met "npm run pakket")
+pakketten/
+web-ext-artifacts/
+
+# Geheimen: komen NOOIT op GitHub
+.env
+.env.*
+*.pem
+*.key
+.amo-upload-uuid
+.web-extension-id
+
+# Persoonlijke instellingen van Claude Code
+.claude/settings.local.json
+.claude/launch.json
+
+# Rommel van het besturingssysteem en editors
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

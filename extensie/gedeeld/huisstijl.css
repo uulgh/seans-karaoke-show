@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Huisstijl "Neonbar" — gedeeld door alle schermen van Sean's Karaoke Show.
+
+   Hier staan de kleuren, de lettertypes en de bouwstenen die overal
+   terugkomen: het logo, knoppen, schakelaars en vinkjes.
+   Wil je een kleur aanpassen? Dat doe je alleen hier, bij de variabelen.
+   ========================================================================== */
+
+/* --- Lettertypes (zitten in de extensie; er wordt niets van internet geladen) */
+
+@font-face {
+  font-family: "Monoton";
+  src: url("../lettertypes/Monoton-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../lettertypes/Rubik-Variabel.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../lettertypes/Inter-Variabel.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* --- Variabelen ---------------------------------------------------------- */
+
+:root {
+  /* Kleuren */
+  --kleur-achtergrond: #0c0a1a;
+  --kleur-zijbalk: #120e26;
+  --kleur-kaart: #1a1536;
+  --kleur-rand: #2c2550;
+  --kleur-tekst: #edebfa;
+  --kleur-gedempt: #a39fc2;
+  --kleur-roze: #ff4fa3;
+  --kleur-op-roze: #1a0614;
+  --kleur-cyaan: #3ddceb;
+
+  /* Subtiele neongloed: voor tekst en voor vlakken */
+  --gloed-roze-tekst: 0 0 6px rgb(255 79 163 / 0.55), 0 0 20px rgb(255 79 163 / 0.35);
+  --gloed-cyaan-tekst: 0 0 6px rgb(61 220 235 / 0.5), 0 0 18px rgb(61 220 235 / 0.3);
+  --gloed-roze-vlak: 0 0 14px rgb(255 79 163 / 0.4), 0 0 34px rgb(255 79 163 / 0.18);
+  --gloed-cyaan-vlak: 0 0 12px rgb(61 220 235 / 0.35), 0 0 30px rgb(61 220 235 / 0.15);
+
+  /* Lettertypes */
+  --letter-logo: "Monoton", "Rubik", system-ui, sans-serif;
+  --letter-kop: "Rubik", system-ui, sans-serif;
+  --letter-tekst: "Inter", system-ui, sans-serif;
+
+  /* Maten */
+  --rond: 14px;
+  --rond-klein: 10px;
+  --knophoogte: 44px;
+
+  color-scheme: dark;
+}
+
+/* --- Basis --------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-color: var(--kleur-rand) transparent;
+  scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: 14px;
+  line-height: 1.45;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Duidelijke rand voor wie met het toetsenbord werkt */
+:focus-visible {
+  outline: 2px solid var(--kleur-cyaan);
+  outline-offset: 2px;
+}
+
+/* Voor tekst die alleen een schermlezer hoeft voor te lezen */
+.alleen-voorlezen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Logo ----------------------------------------------------------------
+   "Sean's" in Monoton (roze, gloed) met daaronder "KARAOKE SHOW" in Rubik
+   (cyaan, ruime letterafstand). De grootte volgt font-size van .logo, dus
+   hetzelfde logo werkt klein in de zijbalk en groot op het wachtscherm. */
+
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 34px;
+  line-height: 1;
+  user-select: none;
+}
+
+.logo__naam {
+  font-family: var(--letter-logo);
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--kleur-roze);
+  text-shadow: var(--gloed-roze-tekst);
+}
+
+.logo__show {
+  margin-top: 0.2em;
+  padding-left: 0.08em;
+  font-family: var(--letter-kop);
+  font-size: 0.3em;
+  font-weight: 700;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--kleur-cyaan);
+  text-shadow: var(--gloed-cyaan-tekst);
+}
+
+/* --- Knoppen ------------------------------------------------------------- */
+
+.knop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--knophoogte);
+  padding: 0 14px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
+}
+
+.knop:hover {
+  border-color: var(--kleur-cyaan);
+  color: var(--kleur-cyaan);
+}
+
+.knop:active {
+  background: rgb(61 220 235 / 0.1);
+}
+
+.knop:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.knop svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* De roze hoofdknop (Start, Toevoegen) */
+.knop--hoofd {
+  border-color: var(--kleur-roze);
+  background: var(--kleur-roze);
+  color: var(--kleur-op-roze);
+  font-family: var(--letter-kop);
+  font-weight: 800;
+  box-shadow: var(--gloed-roze-vlak);
+}
+
+.knop--hoofd:hover {
+  border-color: #ff7cbb;
+  background: #ff7cbb;
+  color: var(--kleur-op-roze);
+}
+
+.knop--hoofd:active {
+  background: #f03f93;
+}
+
+/* Vierkant knopje met alleen een icoon */
+.knop--icoon {
+  width: 38px;
+  padding: 0;
+}
+
+/* --- Schakelaar (aan/uit) ------------------------------------------------- */
+
+.schakelaar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--knophoogte);
+  cursor: pointer;
+  user-select: none;
+}
+
+.schakelaar__invoer {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.schakelaar__spoor {
+  position: relative;
+  flex: none;
+  width: 46px;
+  height: 26px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 999px;
+  background: var(--kleur-achtergrond);
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.schakelaar__spoor::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--kleur-gedempt);
+  transition:
+    transform 0.15s,
+    background-color 0.15s;
+}
+
+.schakelaar__invoer:checked + .schakelaar__spoor {
+  border-color: var(--kleur-roze);
+  background: var(--kleur-roze);
+  box-shadow: var(--gloed-roze-vlak);
+}
+
+.schakelaar__invoer:checked + .schakelaar__spoor::after {
+  transform: translateX(20px);
+  background: var(--kleur-op-roze);
+}
+
+.schakelaar__invoer:focus-visible + .schakelaar__spoor {
+  outline: 2px solid var(--kleur-cyaan);
+  outline-offset: 2px;
+}
+
+/* --- Vinkje --------------------------------------------------------------- */
+
+.vinkje {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--knophoogte);
+  cursor: pointer;
+  user-select: none;
+}
+
+.vinkje__invoer {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.vinkje__vak {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--kleur-gedempt);
+  border-radius: 6px;
+  background: var(--kleur-achtergrond);
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.vinkje__invoer:checked + .vinkje__vak {
+  border-color: var(--kleur-roze);
+  background: var(--kleur-roze);
+}
+
+.vinkje__invoer:checked + .vinkje__vak::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 6px;
+  height: 11px;
+  border: solid var(--kleur-op-roze);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.vinkje__invoer:focus-visible + .vinkje__vak {
+  outline: 2px solid var(--kleur-cyaan);
+  outline-offset: 2px;
+}
+
+/* --- Namen van aanvragers ------------------------------------------------- */
+
+.naam {
+  color: var(--kleur-roze);
+  font-weight: 600;
+}
+
+.naam--geen {
+  color: var(--kleur-gedempt);
+  font-style: italic;
+  font-weight: 400;
+}

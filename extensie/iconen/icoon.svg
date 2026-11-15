@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <!-- Donker vlak met afgeronde hoeken -->
+  <rect width="96" height="96" rx="20" fill="#120E26"/>
+  <rect x="2.5" y="2.5" width="91" height="91" rx="17.5" fill="none" stroke="#FF4FA3" stroke-opacity="0.45" stroke-width="3"/>
+  <!-- Microfoon: roze kop, cyaan beugel en voet -->
+  <rect x="36" y="14" width="24" height="42" rx="12" fill="#FF4FA3"/>
+  <path d="M26 44a22 22 0 0 0 44 0" fill="none" stroke="#3DDCEB" stroke-width="5" stroke-linecap="round"/>
+  <path d="M48 66v14M36 82h24" fill="none" stroke="#3DDCEB" stroke-width="5" stroke-linecap="round"/>
+</svg>

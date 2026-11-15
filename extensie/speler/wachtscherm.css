@@ -1,0 +1,424 @@
+/* ==========================================================================
+   Het wachtscherm op het tweede scherm.
+
+   Ontworpen voor 1920×1080, maar het werkt op elke resolutie: alle maten
+   hangen af van de variabele --u. Op 1920×1080 is 1 × --u precies 19,2 px;
+   op een kleiner of groter scherm schaalt alles mee.
+
+   Kleuren en het logo komen uit ../gedeeld/huisstijl.css.
+   ========================================================================== */
+
+:host {
+  all: initial;
+  color-scheme: dark;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.scherm {
+  --u: min(1vw, 1.7778vh);
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: calc(var(--u) * 1.4);
+  box-sizing: border-box;
+  padding: calc(var(--u) * 2.8) calc(var(--u) * 4.2);
+  overflow: hidden;
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: calc(var(--u) * 1.4);
+  line-height: 1.3;
+  user-select: none;
+}
+
+/* Zachte roze en cyaan lichtvlekken op de achtergrond */
+.scherm__gloed {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 8% 12%, rgb(255 79 163 / 0.2), transparent 62%),
+    radial-gradient(55% 65% at 96% 88%, rgb(61 220 235 / 0.17), transparent 60%),
+    radial-gradient(40% 45% at 70% 8%, rgb(61 220 235 / 0.08), transparent 70%),
+    radial-gradient(45% 50% at 20% 100%, rgb(255 79 163 / 0.09), transparent 70%);
+}
+
+.scherm > :not(.scherm__gloed) {
+  position: relative;
+}
+
+/* --- Bovenaan ---------------------------------------------------------------- */
+
+.scherm__kop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: calc(var(--u) * 3);
+}
+
+.scherm__logo {
+  font-size: calc(var(--u) * 4);
+  flex: none;
+}
+
+.feest {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--u) * 1.4);
+  min-width: 0;
+  max-width: 55%;
+}
+
+.feest__logo {
+  flex: none;
+  max-width: calc(var(--u) * 14);
+  height: calc(var(--u) * 6);
+  object-fit: contain;
+}
+
+.feest__naam {
+  min-width: 0;
+  max-height: calc(var(--u) * 7);
+  overflow: hidden;
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 2.8 * var(--krimp, 1));
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* --- Midden: links het volgende nummer, rechts "Daarna" ------------------------- */
+
+.scherm__midden {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(var(--u) * 31);
+  gap: calc(var(--u) * 4);
+  align-items: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.volgende {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-height: 100%;
+}
+
+/* Het neonwoord VOLGENDE */
+.volgende__woord {
+  font-family: var(--letter-logo);
+  font-size: calc(var(--u) * 5);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--kleur-cyaan);
+  text-shadow:
+    0 0 calc(var(--u) * 0.5) rgb(61 220 235 / 0.6),
+    0 0 calc(var(--u) * 1.6) rgb(61 220 235 / 0.35);
+}
+
+.volgende__artiest {
+  margin-top: calc(var(--u) * 1.4);
+  max-height: calc(var(--u) * 4.2);
+  overflow: hidden;
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 3.1 * var(--krimp, 1));
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--kleur-gedempt);
+  white-space: nowrap;
+}
+
+/* De titel: heel groot. Twee regels op volle grootte; een langere titel
+   wordt kleiner tot hij in dezelfde ruimte past. */
+.volgende__titel {
+  margin-top: calc(var(--u) * 0.6);
+  max-height: calc(var(--u) * 15.6);
+  overflow: hidden;
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 7.2 * var(--krimp, 1));
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+
+.volgende__door {
+  margin-top: calc(var(--u) * 1.8);
+}
+
+.volgende__label {
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 1.5);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--kleur-gedempt);
+}
+
+.volgende__naam {
+  margin-top: calc(var(--u) * 0.3);
+  max-height: calc(var(--u) * 5.8);
+  overflow: hidden;
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 4.6 * var(--krimp, 1));
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+  color: var(--kleur-roze);
+  text-shadow:
+    0 0 calc(var(--u) * 0.5) rgb(255 79 163 / 0.5),
+    0 0 calc(var(--u) * 1.8) rgb(255 79 163 / 0.3);
+}
+
+/* Het paneel "Daarna" met cyaan neonrand */
+.daarna {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  padding: calc(var(--u) * 1.7) calc(var(--u) * 2) calc(var(--u) * 1.2);
+  border: calc(var(--u) * 0.12) solid var(--kleur-cyaan);
+  border-radius: calc(var(--u) * 1.6);
+  background: rgb(18 14 38 / 0.72);
+  box-shadow:
+    0 0 calc(var(--u) * 1.2) rgb(61 220 235 / 0.35),
+    inset 0 0 calc(var(--u) * 1.6) rgb(61 220 235 / 0.08);
+  overflow: hidden;
+}
+
+.daarna__kop {
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 1.7);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--kleur-cyaan);
+  text-shadow: var(--gloed-cyaan-tekst);
+}
+
+.daarna__lijst {
+  display: flex;
+  flex-direction: column;
+  margin-top: calc(var(--u) * 0.8);
+}
+
+.daarna__regel {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.3);
+  padding: calc(var(--u) * 0.9) 0;
+  border-top: 1px solid var(--kleur-rand);
+}
+
+.daarna__regel:first-child {
+  border-top: 0;
+}
+
+.daarna__nummer {
+  flex: none;
+  width: calc(var(--u) * 1.8);
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 2.1);
+  font-weight: 700;
+  text-align: center;
+  color: var(--kleur-cyaan);
+}
+
+.daarna__tekst {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.daarna__titel,
+.daarna__onder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.daarna__titel {
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 1.8);
+  font-weight: 700;
+}
+
+/* Onder de titel: de naam in roze, met de artiest erachter */
+.daarna__onder {
+  font-size: calc(var(--u) * 1.45);
+}
+
+.daarna__artiest {
+  color: var(--kleur-gedempt);
+}
+
+.daarna__leeg {
+  margin-top: calc(var(--u) * 1.2);
+  font-size: calc(var(--u) * 1.5);
+  color: var(--kleur-gedempt);
+}
+
+/* --- Als de wachtrij leeg is ----------------------------------------------------- */
+
+.leeg {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.leeg__groot {
+  font-family: var(--letter-logo);
+  font-size: calc(var(--u) * 7.5);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--kleur-cyaan);
+  text-shadow:
+    0 0 calc(var(--u) * 0.5) rgb(61 220 235 / 0.6),
+    0 0 calc(var(--u) * 1.6) rgb(61 220 235 / 0.35);
+}
+
+.leeg__klein {
+  margin-top: calc(var(--u) * 1.6);
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 3.2);
+  font-weight: 700;
+  color: var(--kleur-roze);
+  text-shadow: var(--gloed-roze-tekst);
+}
+
+/* --- Onderaan -------------------------------------------------------------------- */
+
+.scherm__voet {
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 3);
+  height: calc(var(--u) * 7.6);
+}
+
+.voet__muziek {
+  font-size: calc(var(--u) * 1.5);
+  color: var(--kleur-gedempt);
+}
+
+.voet__noot {
+  color: var(--kleur-cyaan);
+  text-shadow: var(--gloed-cyaan-tekst);
+}
+
+.voet__klaar {
+  margin-left: auto;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 2.5);
+  font-weight: 700;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* De roze aftelcirkel */
+.aftel {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 7.6);
+  height: calc(var(--u) * 7.6);
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--kleur-roze);
+  color: var(--kleur-op-roze);
+  box-shadow:
+    0 0 calc(var(--u) * 1.4) rgb(255 79 163 / 0.65),
+    0 0 calc(var(--u) * 4) rgb(255 79 163 / 0.3);
+}
+
+.aftel__getal {
+  font-family: var(--letter-kop);
+  font-size: calc(var(--u) * 4.6);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.aftel--tik {
+  animation: tik 0.9s ease-out;
+}
+
+@keyframes tik {
+  0% {
+    transform: scale(1.22);
+  }
+  35% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aftel--tik {
+    animation: none;
+  }
+}
+
+/* --- Het venster moet nog naar het tweede scherm ---------------------------------- */
+
+.scherm--plaatsen > :not(.plaatsen):not(.scherm__gloed) {
+  opacity: 0.18;
+}
+
+.scherm .plaatsen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: min(560px, calc(100vw - 48px));
+  padding: 28px;
+  border: 1px solid var(--kleur-roze);
+  border-radius: 20px;
+  background: var(--kleur-zijbalk);
+  text-align: center;
+  box-shadow:
+    0 0 26px rgb(255 79 163 / 0.3),
+    0 24px 70px rgb(0 0 0 / 0.65);
+}
+
+.plaatsen__kop {
+  font-family: var(--letter-kop);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--kleur-roze);
+  text-shadow: var(--gloed-roze-tekst);
+}
+
+.plaatsen__tekst {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--kleur-gedempt);
+}
+
+.plaatsen__knop {
+  min-height: 56px;
+  padding: 0 28px;
+  font-size: 18px;
+  cursor: pointer;
+}

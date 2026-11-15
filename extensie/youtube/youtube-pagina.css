@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Wat we aan YouTube-pagina's zelf toevoegen:
+   1. de knop "+ Wachtrij" op thumbnails (in het laptopvenster);
+   2. de regels die in het SPELERVENSTER alles verbergen behalve de video.
+
+   Dit bestand wordt in de YouTube-pagina geladen. Alle namen beginnen met
+   "sks-" (Sean's Karaoke Show), zodat ze nooit botsen met YouTube.
+
+   De kleuren zijn dezelfde als in gedeeld/huisstijl.css. Ze staan hier nog
+   een keer, omdat de variabelen van de huisstijl in een YouTube-pagina niet
+   bestaan. Pas je daar een kleur aan, pas hem dan ook hier aan.
+   ========================================================================== */
+
+/* --- 1. De knop "+ Wachtrij" ------------------------------------------------- */
+
+.sks-anker {
+  position: relative !important;
+}
+
+.sks-wachtrijknop {
+  all: initial;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2000;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border: 1.5px solid #ff4fa3;
+  border-radius: 999px;
+  background: rgb(18 14 38 / 0.92);
+  color: #ff4fa3;
+  font-family: "Rubik", "Roboto", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 0 10px rgb(255 79 163 / 0.35);
+  transition:
+    background-color 0.12s,
+    color 0.12s,
+    box-shadow 0.12s;
+}
+
+.sks-wachtrijknop:hover,
+.sks-wachtrijknop:focus-visible {
+  background: #ff4fa3;
+  color: #1a0614;
+  box-shadow:
+    0 0 14px rgb(255 79 163 / 0.7),
+    0 0 34px rgb(255 79 163 / 0.35);
+}
+
+.sks-wachtrijknop:focus-visible {
+  outline: 2px solid #3ddceb;
+  outline-offset: 2px;
+}
+
+/* De knop op de video die je aan het bekijken bent: iets groter */
+.sks-wachtrijknop--video {
+  top: 14px;
+  right: 14px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 15px;
+}
+
+/* --- 2. Het spelervenster -------------------------------------------------------
+
+   html.sks-speler        dit tabblad is het spelervenster
+   html.sks-toont-video   de video speelt en moet het hele scherm vullen
+   .sks-pad               de video en alle vakken waar hij in zit
+
+   Zolang de video niet speelt is de hele YouTube-pagina onzichtbaar; het
+   wachtscherm (speler/wachtscherm.js) ligt eroverheen. */
+
+html.sks-speler {
+  background: #0c0a1a !important;
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+html.sks-speler:not(.sks-toont-video) body {
+  visibility: hidden !important;
+}
+
+/* In het spelervenster hoort geen muisaanwijzer in beeld */
+html.sks-speler:not(.sks-plaatsen),
+html.sks-speler:not(.sks-plaatsen) * {
+  cursor: none !important;
+}
+
+html.sks-toont-video,
+html.sks-toont-video body {
+  background: #000 !important;
+  overflow: hidden !important;
+}
+
+/* De video en elk vak eromheen vullen het hele scherm ... */
+html.sks-toont-video .sks-pad {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  contain: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: hidden !important;
+  z-index: 2147483000 !important;
+  background: #000 !important;
+}
+
+/* ... en alles ernaast (knoppen, menu's, suggesties) is onzichtbaar. */
+html.sks-toont-video .sks-pad > :not(.sks-pad) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html.sks-toont-video video.sks-pad {
+  object-fit: contain !important;
+}

@@ -403,15 +403,40 @@ body {
   overflow-wrap: anywhere;
 }
 
-/* Label "zelf verplaatst" */
+/* Label "zelf verplaatst". Het is een knopje: een klik deelt het nummer weer eerlijk in. */
 .etiket {
   padding: 0 7px;
   border: 1px solid var(--kleur-rand);
   border-radius: 999px;
+  background: none;
+  font-family: var(--letter-tekst);
   font-size: 11px;
   line-height: 1.6;
   white-space: nowrap;
   color: var(--kleur-gedempt);
+  cursor: pointer;
+}
+
+.etiket:hover {
+  border-color: var(--kleur-cyaan);
+  color: var(--kleur-cyaan);
+}
+
+/* Slepen: de regel die je vasthebt wordt vaag, een roze streep toont de nieuwe plek */
+.regel--sleept {
+  opacity: 0.4;
+}
+
+.regel--voor {
+  box-shadow: 0 -3px 0 0 var(--kleur-roze);
+}
+
+.regel--na {
+  box-shadow: 0 3px 0 0 var(--kleur-roze);
+}
+
+.regel__greep {
+  touch-action: none;
 }
 
 .regel__knoppen {
@@ -444,9 +469,50 @@ body {
 /* --- Voet: achtergrondmuziek ------------------------------------------------- */
 
 .voet {
-  padding: 6px 16px;
+  padding: 6px 16px 8px;
   border-top: 1px solid var(--kleur-rand);
   background: var(--kleur-zijbalk);
+}
+
+.voet__rij {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.voet__rij .schakelaar--breed {
+  flex: 1;
+  min-width: 0;
+}
+
+.voet__tandwiel {
+  flex: none;
+  width: 44px;
+}
+
+/* De volumeregelaar (alleen te zien als de achtergrondmuziek aan staat) */
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  font-size: 13px;
+  color: var(--kleur-gedempt);
+}
+
+.volume__schuif {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  accent-color: var(--kleur-roze);
+  cursor: pointer;
+}
+
+.volume__getal {
+  min-width: 26px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--kleur-tekst);
 }
 
 .schakelaar--breed {
@@ -489,4 +555,90 @@ body {
 .bericht--fout {
   border-color: var(--kleur-roze);
   box-shadow: var(--gloed-roze-vlak);
+}
+
+/* --- Uitleg en problemen bovenin ------------------------------------------------- */
+
+.hulp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  border: 1px solid var(--kleur-cyaan);
+  border-radius: var(--rond-klein);
+  background: rgb(61 220 235 / 0.06);
+  font-size: 13px;
+  color: var(--kleur-gedempt);
+}
+
+.hulp strong {
+  font-family: var(--letter-kop);
+  font-weight: 700;
+  color: var(--kleur-tekst);
+}
+
+.hulp--probleem {
+  border-color: var(--kleur-roze);
+  background: rgb(255 79 163 / 0.08);
+}
+
+/* De Start-knop als er nog geen spelerscherm is: wel aan te klikken, maar rustiger */
+.knop--wacht {
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.knop--compact.knop--hoofd {
+  font-family: var(--letter-tekst);
+  font-weight: 700;
+}
+
+/* --- Instellingen ------------------------------------------------------------------- */
+
+.instellingen {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 14px 16px 20px;
+}
+
+.instellingen__kop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.instellingen .veld > .knop {
+  align-self: flex-start;
+}
+
+.logokeuze {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.logokeuze__beeld {
+  max-width: 120px;
+  height: 44px;
+  padding: 4px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: var(--rond-klein);
+  background: var(--kleur-achtergrond);
+  object-fit: contain;
+}
+
+.logokeuze__knop {
+  position: relative;
+  cursor: pointer;
+}
+
+.logokeuze__knop:focus-within {
+  outline: 2px solid var(--kleur-cyaan);
+  outline-offset: 2px;
 }

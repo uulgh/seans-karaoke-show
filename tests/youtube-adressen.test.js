@@ -62,3 +62,44 @@ test("kijkadres en oembedAdres maken de juiste links", () => {
     `https://www.youtube.com/oembed?format=json&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D${ID}`,
   );
 });
+
+// --- Spelervenster en achtergrondmuziek ---------------------------------------------
+
+import { muziekadres, muziekUit, rustadres, speleradres } from "../extensie/youtube/youtube-adressen.js";
+
+const LIJST = "PLabcdefghij1234567890";
+
+test("speleradres en rustadres dragen het spelermerk", () => {
+  assert.equal(speleradres(ID, 5), `https://www.youtube.com/watch?v=${ID}#karaoke-speler-nummer-5`);
+  assert.equal(rustadres(7), "https://www.youtube.com/robots.txt#karaoke-speler-rust-7");
+});
+
+test("muziekUit herkent een video, een afspeellijst en allebei", () => {
+  assert.deepEqual(muziekUit(`https://www.youtube.com/watch?v=${ID}`), { videoId: ID, lijstId: null });
+  assert.deepEqual(muziekUit(`https://youtu.be/${ID}`), { videoId: ID, lijstId: null });
+  assert.deepEqual(muziekUit(`https://www.youtube.com/watch?v=${ID}&list=${LIJST}`), { videoId: ID, lijstId: LIJST });
+  assert.deepEqual(muziekUit(`https://www.youtube.com/playlist?list=${LIJST}`), { videoId: null, lijstId: LIJST });
+  assert.deepEqual(muziekUit(`https://music.youtube.com/playlist?list=${LIJST}`), { videoId: null, lijstId: LIJST });
+});
+
+test("muziekUit weigert wat geen muzieklink is", () => {
+  for (const adres of ["", "hallo", "https://voorbeeld.nl/playlist?list=" + LIJST, "https://www.youtube.com/", "https://www.youtube.com/playlist?list=<x>"]) {
+    assert.equal(muziekUit(adres), null);
+  }
+});
+
+test("muziekadres bouwt het afspeeladres, ook om verder te gaan waar de muziek was", () => {
+  assert.equal(muziekadres({ videoId: ID, lijstId: null }, null, 1), `https://www.youtube.com/watch?v=${ID}#karaoke-speler-muziek-1`);
+  assert.equal(
+    muziekadres({ videoId: ID, lijstId: LIJST }, null, 1),
+    `https://www.youtube.com/watch?v=${ID}&list=${LIJST}#karaoke-speler-muziek-1`,
+  );
+  assert.equal(
+    muziekadres({ videoId: ID, lijstId: LIJST }, { videoId: "eeeeeeeeeee", tijd: 83 }, 1),
+    `https://www.youtube.com/watch?v=eeeeeeeeeee&list=${LIJST}&t=83s#karaoke-speler-muziek-1`,
+  );
+  assert.equal(
+    muziekadres({ videoId: null, lijstId: LIJST }, null, 1),
+    `https://www.youtube.com/playlist?list=${LIJST}&playnext=1#karaoke-speler-muziek-1`,
+  );
+});

@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="paneel">
-      <!-- ===== Kop: logo, status van het tweede scherm, knop om te verplaatsen ===== -->
+      <!-- ===== Kop: logo, status van het tweede scherm, knop voor het spelerscherm ===== -->
       <header class="kop">
         <h1 class="logo" aria-label="Sean's Karaoke Show">
           <span class="logo__naam" aria-hidden="true">Sean's</span>
@@ -19,26 +19,38 @@
         <div class="kop__scherm">
           <p class="status" id="scherm-status">
             <span class="status__stip" aria-hidden="true"></span>
-            <span id="scherm-status-tekst">Tweede scherm actief</span>
+            <span id="scherm-status-tekst">Geen tweede scherm</span>
           </p>
-          <button type="button" class="knop knop--compact" id="scherm-knop" data-fase="3">
+          <button type="button" class="knop knop--compact" id="scherm-knop">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 fill-rule="evenodd"
                 d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6v2h3v2H7v-2h3v-2H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v8h14V6H5z"
               />
             </svg>
-            <span id="scherm-knop-tekst">Opnieuw plaatsen</span>
+            <span id="scherm-knop-tekst">Spelerscherm openen</span>
           </button>
         </div>
       </header>
 
       <!-- ===== Het deel dat kan scrollen ===== -->
-      <main class="inhoud">
+      <main class="inhoud" id="inhoud">
+        <!-- Uitleg als het spelerscherm nog geplaatst moet worden -->
+        <section class="hulp" id="hulp-plaatsen" hidden>
+          <p><strong>Sleep het spelerscherm naar het tweede scherm.</strong></p>
+          <p>Klik daarna op "Hier vastzetten" hierboven, of op de knop in het spelerscherm zelf.</p>
+        </section>
+
+        <!-- Melding als er iets niet goed gaat op het tweede scherm -->
+        <section class="hulp hulp--probleem" id="hulp-probleem" hidden>
+          <p><strong id="probleem-kop"></strong></p>
+          <p id="probleem-tekst"></p>
+        </section>
+
         <!-- NU BEZIG -->
         <section class="kaart" aria-labelledby="nu-kop">
           <h2 class="kaart__label kaart__label--cyaan" id="nu-kop">
-            <span class="kaart__puls" id="nu-puls" aria-hidden="true"></span>Nu bezig
+            <span class="kaart__puls" id="nu-puls" aria-hidden="true"></span><span id="nu-kop-tekst">Nu bezig</span>
           </h2>
 
           <div id="nu-gevuld">
@@ -65,15 +77,17 @@
             </div>
 
             <div class="knoppenrij">
-              <button type="button" class="knop" id="knop-pauze" data-fase="4">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
-                Pauze
+              <button type="button" class="knop" id="knop-pauze" data-opdracht="pauze-wissel">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path id="pauze-icoon" d="M7 5h4v14H7zM13 5h4v14h-4z" />
+                </svg>
+                <span id="pauze-tekst">Pauze</span>
               </button>
-              <button type="button" class="knop" id="knop-stop" data-fase="4">
+              <button type="button" class="knop" id="knop-stop" data-opdracht="stoppen">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
                 Stop
               </button>
-              <button type="button" class="knop" id="knop-overslaan" data-fase="4">
+              <button type="button" class="knop" id="knop-overslaan" data-opdracht="overslaan">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5l9 7-9 7zM16 5h2.5v14H16z" /></svg>
                 Overslaan
               </button>
@@ -92,9 +106,11 @@
             <p class="nummer__artiest" id="volgende-artiest"></p>
             <p class="nummer__wie">Gevraagd door <span class="naam" id="volgende-aanvrager"></span></p>
           </div>
-          <p class="kaart__leeg" id="volgende-leeg" hidden>Nog geen nummers in de wachtrij.</p>
+          <p class="kaart__leeg" id="volgende-leeg" hidden>
+            Nog geen nummers. Klik op YouTube bij een video op "+ Wachtrij".
+          </p>
 
-          <button type="button" class="knop knop--hoofd knop--start" id="knop-start" data-fase="3">
+          <button type="button" class="knop knop--hoofd knop--start" id="knop-start">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" /></svg>
             Start
           </button>
@@ -115,32 +131,116 @@
             </h2>
             <label class="schakelaar">
               <span class="schakelaar__tekst">Eerlijke beurt</span>
-              <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-eerlijk" data-instelling="eerlijkeBeurt" />
+              <input
+                type="checkbox"
+                role="switch"
+                class="schakelaar__invoer"
+                id="optie-eerlijk"
+                data-instelling="eerlijkeBeurt"
+              />
               <span class="schakelaar__spoor" aria-hidden="true"></span>
             </label>
           </div>
 
           <ol class="wachtrij__lijst" id="wachtrij-lijst"></ol>
           <p class="kaart__leeg" id="wachtrij-leeg" hidden>
-            De wachtrij is leeg. Klik op YouTube met de rechtermuisknop op een video en kies "Zet in de
-            karaoke-wachtrij".
+            De wachtrij is leeg. Zoek op YouTube een karaokevideo en klik op "+ Wachtrij".
           </p>
         </section>
       </main>
 
-      <!-- ===== Voet: achtergrondmuziek ===== -->
-      <footer class="voet">
-        <label class="schakelaar schakelaar--breed">
-          <span class="schakelaar__tekst voet__tekst">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v10.3a3.5 3.5 0 1 0 2 3.2V8h6V4H9z" /></svg>
-            Achtergrondmuziek
+      <!-- ===== Instellingen (schuift over het midden heen) ===== -->
+      <section class="instellingen" id="instellingen" aria-labelledby="instellingen-kop" hidden>
+        <div class="instellingen__kop">
+          <h2 class="wachtrij__titel" id="instellingen-kop">Instellingen</h2>
+          <button type="button" class="knop knop--compact" id="instellingen-sluiten">Sluiten</button>
+        </div>
+
+        <label class="veld">
+          <span class="veld__label">Naam van het feest</span>
+          <input
+            type="text"
+            class="veld__invoer"
+            id="invoer-feestnaam"
+            data-tekstinstelling="feestnaam"
+            maxlength="60"
+            placeholder="Karaoke-avond"
+            autocomplete="off"
+          />
+          <span class="veld__hulp">Staat rechtsboven op het wachtscherm.</span>
+        </label>
+
+        <div class="veld">
+          <span class="veld__label">Eigen logo (naast de feestnaam)</span>
+          <div class="logokeuze">
+            <img class="logokeuze__beeld" id="logo-beeld" alt="Het gekozen logo" hidden />
+            <label class="knop knop--compact logokeuze__knop">
+              Logo kiezen
+              <input type="file" id="logo-bestand" accept="image/*" class="alleen-voorlezen" />
+            </label>
+            <button type="button" class="knop knop--compact" id="logo-weg" hidden>Weghalen</button>
+          </div>
+          <span class="veld__hulp">Een afbeelding van hooguit 2 MB. Een logo met doorzichtige achtergrond staat het mooist.</span>
+        </div>
+
+        <label class="veld">
+          <span class="veld__label">YouTube-link voor de achtergrondmuziek</span>
+          <input
+            type="url"
+            class="veld__invoer"
+            id="invoer-muziek"
+            data-tekstinstelling="muziekAdres"
+            maxlength="500"
+            placeholder="https://www.youtube.com/watch?v=…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <span class="veld__hulp" id="muziek-hulp">Een video of een afspeellijst. Plak de link en druk op Enter.</span>
+        </label>
+
+        <div class="veld">
+          <span class="veld__label">Nieuwe avond</span>
+          <button type="button" class="knop" id="nieuwe-avond">Wachtrij en beurten leegmaken</button>
+          <span class="veld__hulp">
+            Wist de wachtrij en begint de telling voor de eerlijke beurt opnieuw. De instellingen blijven staan.
           </span>
-          <input type="checkbox" role="switch" class="schakelaar__invoer" id="optie-muziek" data-instelling="achtergrondmuziek" />
-          <span class="schakelaar__spoor" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <!-- ===== Voet: achtergrondmuziek en instellingen ===== -->
+      <footer class="voet">
+        <div class="voet__rij">
+          <label class="schakelaar schakelaar--breed">
+            <span class="schakelaar__tekst voet__tekst">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v10.3a3.5 3.5 0 1 0 2 3.2V8h6V4H9z" /></svg>
+              Achtergrondmuziek
+            </span>
+            <input
+              type="checkbox"
+              role="switch"
+              class="schakelaar__invoer"
+              id="optie-muziek"
+              data-instelling="achtergrondmuziek"
+            />
+            <span class="schakelaar__spoor" aria-hidden="true"></span>
+          </label>
+          <button type="button" class="knop knop--icoon voet__tandwiel" id="instellingen-knop" title="Instellingen" aria-label="Instellingen">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M10.3 2h3.4l.5 2.6 1.6.7 2.2-1.5 2.4 2.4-1.5 2.2.7 1.6 2.6.5v3.4l-2.6.5-.7 1.6 1.5 2.2-2.4 2.4-2.2-1.5-1.6.7-.5 2.6h-3.4l-.5-2.6-1.6-.7-2.2 1.5-2.4-2.4 1.5-2.2-.7-1.6L2 13.7v-3.4l2.6-.5.7-1.6-1.5-2.2 2.4-2.4 2.2 1.5 1.6-.7.3-2.4zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"
+              />
+            </svg>
+          </button>
+        </div>
+        <label class="volume" id="volume-rij" hidden>
+          <span class="volume__tekst">Volume</span>
+          <input type="range" class="volume__schuif" id="invoer-volume" min="0" max="100" step="1" />
+          <span class="volume__getal" id="volume-getal">20</span>
         </label>
       </footer>
 
-      <!-- Kort berichtje onderin, bijvoorbeeld "Deze knop werkt vanaf fase 3" -->
+      <!-- Kort berichtje onderin, bijvoorbeeld "Toegevoegd: Mamma Mia" -->
       <p class="bericht" id="bericht" role="status" aria-live="polite" hidden></p>
     </div>
 
@@ -163,22 +263,19 @@
           <span class="regel__artiest"></span>
           <span class="regel__wie">
             <span class="naam regel__naam"></span>
-            <span class="etiket" hidden>zelf verplaatst</span>
+            <button type="button" class="etiket" data-actie="losmaken" title="Klik om dit nummer weer eerlijk in te delen" hidden>
+              zelf verplaatst
+            </button>
           </span>
         </div>
         <div class="regel__knoppen">
-          <button type="button" class="knop knop--icoon" data-actie="omhoog" data-fase="4" title="Naar voren">
+          <button type="button" class="knop knop--icoon" data-actie="omhoog" title="Naar voren">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 8h-4.5v6h-5v-6H5z" /></svg>
           </button>
-          <button type="button" class="knop knop--icoon" data-actie="omlaag" data-fase="4" title="Naar achteren">
+          <button type="button" class="knop knop--icoon" data-actie="omlaag" title="Naar achteren">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l-7-8h4.5V5h5v6H19z" /></svg>
           </button>
-          <button
-            type="button"
-            class="knop knop--icoon knop--weg"
-            data-actie="verwijderen"
-            title="Verwijderen"
-          >
+          <button type="button" class="knop knop--icoon knop--weg" data-actie="verwijderen" title="Verwijderen">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M9 3h6l1 2h4v2H4V5h4l1-2zM6 9h12l-.9 11.1A2 2 0 0 1 15.1 22H8.9a2 2 0 0 1-2-1.9L6 9z" />
             </svg>

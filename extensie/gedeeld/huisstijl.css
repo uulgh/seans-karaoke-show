@@ -378,6 +378,17 @@ input {
   opacity: 0.55;
 }
 
+/* Kleine uitleg onder een veld */
+.veld__hulp {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--kleur-gedempt);
+}
+
+.veld__hulp--fout {
+  color: var(--kleur-roze);
+}
+
 /* --- Namen van aanvragers ------------------------------------------------- */
 
 .naam {

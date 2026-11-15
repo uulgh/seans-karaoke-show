@@ -3,6 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  bekendeNamen,
   herstel,
   legeToestand,
   maakNummer,
@@ -125,4 +126,13 @@ test("wat bewaard en weer geladen wordt, komt er hetzelfde uit", () => {
   toestand = zetInstelling(toestand, "achtergrondmuziek", true);
   const viaOpslag = JSON.parse(JSON.stringify(toestand));
   assert.deepEqual(herstel(viaOpslag), toestand);
+});
+
+test("bekendeNamen geeft elke aanvrager één keer, op alfabet, zonder lege namen", () => {
+  let toestand = legeToestand();
+  for (const aanvrager of ["Tom", "Lisa", "", "lisa", "Fatima & Sanne", "TOM"]) {
+    toestand = voegToe(toestand, maakNummer({ ...MAMMA_MIA, aanvrager }));
+  }
+  assert.deepEqual(bekendeNamen(toestand), ["Fatima & Sanne", "Lisa", "Tom"]);
+  assert.deepEqual(bekendeNamen(legeToestand()), []);
 });

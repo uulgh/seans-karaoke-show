@@ -40,8 +40,11 @@ Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
   karaoke-wachtrij" voegt een nummer toe (de titel wordt bij YouTube
   opgevraagd); verwijderen werkt al; de schakelaars onthouden hun stand;
   `npm start` heeft een vast testprofiel zodat "blijft bewaard" te testen is
-- ⬜ **Stap 3 — Pop-up "In de wachtrij zetten"** met Artiest, Titel en
-  Aangevraagd door, plus een knop om artiest en titel om te wisselen
+- ✅ **Stap 3 — Pop-up "In de wachtrij zetten"** met Artiest, Titel en
+  Aangevraagd door, plus een knop om artiest en titel om te wisselen; het
+  rechtsklikmenu opent nu de pop-up; namen die al gebruikt zijn worden
+  voorgesteld; staat de link niet op een YouTube-pagina, dan gaat het nummer
+  meteen (zonder naam) in de wachtrij
 - ⬜ **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil rechtsboven)
 
 Afgesproken keuzes voor deze fase:

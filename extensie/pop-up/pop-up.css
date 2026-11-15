@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Pop-up "In de wachtrij zetten" (verschijnt in de YouTube-pagina).
+
+   Deze opmaak geldt alleen binnen het afgeschermde stukje van de pagina waar
+   de pop-up in staat. Kleuren, knoppen en invulvelden komen uit
+   ../gedeeld/huisstijl.css.
+   ========================================================================== */
+
+/* Niets overnemen van de opmaak van YouTube. */
+:host {
+  all: initial;
+  color-scheme: dark;
+}
+
+/* --- Het venster ------------------------------------------------------------ */
+
+.venster {
+  box-sizing: border-box;
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  margin: auto;
+  padding: 22px;
+  overflow: auto;
+  border: 1px solid var(--kleur-roze);
+  border-radius: 18px;
+  background: var(--kleur-zijbalk);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: left;
+  box-shadow:
+    0 0 26px rgb(255 79 163 / 0.3),
+    0 24px 70px rgb(0 0 0 / 0.65);
+}
+
+/* De donkere laag over YouTube heen */
+.venster::backdrop {
+  background: rgb(12 10 26 / 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.venster__formulier {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+}
+
+.venster__kop {
+  font-family: var(--letter-kop);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--kleur-roze);
+  text-shadow: var(--gloed-roze-tekst);
+}
+
+/* De oorspronkelijke videotitel, ter controle */
+.venster__video {
+  margin-top: -8px;
+  font-size: 12.5px;
+  color: var(--kleur-gedempt);
+  overflow-wrap: anywhere;
+}
+
+.venster__video:empty {
+  display: none;
+}
+
+/* Artiest en Titel onder elkaar, met rechts de wisselknop ertussen */
+.venster__nummer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 10px;
+  align-items: end;
+}
+
+.venster__nummer .veld {
+  grid-column: 1;
+}
+
+.venster__wissel {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  margin-top: 22px; /* de labels boven de velden meetellen */
+}
+
+.veld__hulp {
+  font-size: 12px;
+  color: var(--kleur-gedempt);
+}
+
+.venster__status {
+  padding: 8px 12px;
+  border: 1px solid var(--kleur-cyaan);
+  border-radius: var(--rond-klein);
+  font-size: 13px;
+  color: var(--kleur-tekst);
+}
+
+.venster__status--fout {
+  border-color: var(--kleur-roze);
+}
+
+.venster__knoppen {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.venster__knoppen .knop {
+  min-width: 116px;
+}
+
+.venster__knoppen .knop--hoofd {
+  font-size: 15px;
+}
+
+/* --- Kort berichtje onderin beeld na het toevoegen ---------------------------- */
+
+.toast {
+  position: fixed;
+  inset: auto auto 36px 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 12px 18px;
+  border: 1px solid var(--kleur-cyaan);
+  border-radius: 999px;
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: var(--gloed-cyaan-vlak);
+  pointer-events: none;
+}

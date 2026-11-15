@@ -132,3 +132,18 @@ export function zetInstelling(toestand, naam, waarde) {
   }
   return { ...toestand, instellingen: { ...toestand.instellingen, [naam]: waarde } };
 }
+
+// Alle namen van aanvragers die vanavond al zijn gebruikt, op alfabet.
+// De pop-up stelt deze voor, zodat "Lisa" niet de ene keer "lisa" en de
+// andere keer "Liza" wordt (belangrijk voor de eerlijke beurtverdeling).
+export function bekendeNamen(toestand) {
+  const namen = new Map(); // kleine letters → de naam zoals hij het eerst is getypt
+  const alles = [toestand.nuBezig, ...toestand.wachtrij, ...toestand.gezongen];
+  for (const nummer of alles) {
+    const naam = nummer?.aanvrager;
+    if (!naam) continue;
+    const sleutel = naam.toLocaleLowerCase("nl");
+    if (!namen.has(sleutel)) namen.set(sleutel, naam);
+  }
+  return [...namen.values()].sort((a, b) => a.localeCompare(b, "nl")).slice(0, 100);
+}

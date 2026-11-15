@@ -10,10 +10,10 @@
 // gebeurt; dat lukt alleen als de luisteraars meteen bij het starten worden
 // aangemeld.
 
-import { verwijder, zetInstelling } from "../gedeeld/wachtrij.js";
-import { LINKPATRONEN } from "../youtube/youtube-adressen.js";
+import { bekendeNamen, staatInWachtrij, verwijder, zetInstelling } from "../gedeeld/wachtrij.js";
+import { isVideoId, LINKPATRONEN } from "../youtube/youtube-adressen.js";
 import { leesToestand, werkToestandBij, zetMelding } from "./opslag.js";
-import { voegVideoToe } from "./toevoegen.js";
+import { openPopUpOfVoegToe, voegNummerToe, zoekVideogegevens } from "./toevoegen.js";
 
 const MENU_ID = "zet-in-wachtrij";
 
@@ -41,23 +41,26 @@ async function maakMenu() {
 browser.runtime.onInstalled.addListener(maakMenu);
 browser.runtime.onStartup.addListener(maakMenu);
 
-browser.menus.onClicked.addListener((info) => {
+browser.menus.onClicked.addListener((info, tabblad) => {
   if (info.menuItemId !== MENU_ID) return;
 
   // Zijbalk openen zodat je ziet dat het nummer erbij komt. Dit moet als
   // allereerste, anders ziet Firefox het niet meer als reactie op de klik.
   browser.sidebarAction.open();
 
-  voegVideoToe({ adres: info.linkUrl, linkTekst: info.linkText }).catch((fout) => {
+  openPopUpOfVoegToe({ adres: info.linkUrl, linkTekst: info.linkText, tabId: tabblad?.id }).catch((fout) => {
     console.error("Toevoegen via het rechtsklikmenu is mislukt:", fout);
     zetMelding(`Toevoegen is niet gelukt: ${fout.message}`, "fout");
   });
 });
 
-// --- Berichten van de zijbalk ---------------------------------------------------
+// --- Berichten van de zijbalk en van de pop-up ----------------------------------
 
-// Alleen de eigen pagina's van de extensie (zoals de zijbalk) mogen de
-// wachtrij en de instellingen veranderen, geen webpagina's.
+// Berichten komen altijd van de extensie zelf: van een eigen pagina (zoals de
+// zijbalk) of van ons eigen script in een YouTube-pagina (de pop-up). Gewone
+// webpagina's kunnen hier niets naartoe sturen.
+//
+// Verwijderen en instellingen wijzigen mag alleen vanaf een eigen pagina.
 function komtVanEigenPagina(afzender) {
   return typeof afzender.url === "string" && afzender.url.startsWith(browser.runtime.getURL(""));
 }
@@ -76,14 +79,44 @@ async function instellingZetten(naam, waarde) {
   return { gelukt: true };
 }
 
+// De pop-up vraagt: wat is de artiest en de titel van deze video?
+async function videogegevens({ videoId, titelHint }) {
+  if (!isVideoId(videoId)) return { gelukt: false };
+  const [gegevens, toestand] = await Promise.all([zoekVideogegevens(videoId, titelHint), leesToestand()]);
+  return {
+    gelukt: true,
+    ...gegevens, // videotitel, artiest, titel
+    staatAl: staatInWachtrij(toestand, videoId),
+    namen: bekendeNamen(toestand),
+  };
+}
+
+// De pop-up zegt: zet dit nummer in de wachtrij.
+async function nummerToevoegen({ videoId, artiest, titel, aanvrager }) {
+  try {
+    const { stondErAl } = await voegNummerToe({ videoId, artiest, titel, aanvrager });
+    return { gelukt: true, stondErAl };
+  } catch (fout) {
+    return { gelukt: false, fout: fout.message };
+  }
+}
+
 browser.runtime.onMessage.addListener((bericht, afzender) => {
-  if (!bericht || typeof bericht !== "object" || !komtVanEigenPagina(afzender)) return undefined;
+  if (!bericht || typeof bericht !== "object" || afzender.id !== browser.runtime.id) return undefined;
 
   switch (bericht.soort) {
+    // Vanuit de pop-up op YouTube (of een eigen pagina).
+    case "videogegevens-opvragen":
+      return videogegevens(bericht);
+    case "nummer-toevoegen":
+      return nummerToevoegen(bericht);
+
+    // Alleen vanaf een eigen pagina, zoals de zijbalk.
     case "nummer-verwijderen":
-      return nummerVerwijderen(bericht.id);
+      return komtVanEigenPagina(afzender) ? nummerVerwijderen(bericht.id) : undefined;
     case "instelling-zetten":
-      return instellingZetten(bericht.naam, bericht.waarde);
+      return komtVanEigenPagina(afzender) ? instellingZetten(bericht.naam, bericht.waarde) : undefined;
+
     default:
       return undefined;
   }

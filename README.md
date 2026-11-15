@@ -10,10 +10,10 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
   video schermvullend.
 - Je laptop blijft stil; het geluid komt alleen van het karaokescherm.
 
-> **Stand van zaken:** fase 1 van 8 is klaar en fase 2 is halverwege. Je kunt
-> via het rechtsklikmenu op YouTube nummers in de wachtrij zetten en weer
-> verwijderen, en de wachtrij blijft bewaard. De pop-up, de knop "+ Wachtrij"
-> en het tweede scherm komen nog. Zie [PLAN.md](PLAN.md).
+> **Stand van zaken:** fase 1 van 8 is klaar en fase 2 is bijna af. Je kunt
+> via het rechtsklikmenu op YouTube nummers in de wachtrij zetten, met de
+> naam van de aanvrager, en ze weer verwijderen. De wachtrij blijft bewaard.
+> De knop "+ Wachtrij" en het tweede scherm komen nog. Zie [PLAN.md](PLAN.md).
 
 ## Wat je nodig hebt
 
@@ -44,7 +44,8 @@ werkbalk.
 - De eerste keer vraagt YouTube om cookietoestemming. Maak je keuze; de
   test-Firefox onthoudt die.
 - **Een nummer toevoegen:** klik met de rechtermuisknop op een video en kies
-  "Zet in de karaoke-wachtrij".
+  "Zet in de karaoke-wachtrij". Er verschijnt een pop-up met Artiest, Titel
+  en Aangevraagd door. Typ de naam en druk op Enter.
 - De test-Firefox heeft een eigen, vast profiel (de map `.testprofiel`). De
   wachtrij staat er dus nog als je later opnieuw `npm start` doet. Wil je
   helemaal opnieuw beginnen, gooi dan de map `.testprofiel` weg.
@@ -70,6 +71,7 @@ te drukken.
 | --- | --- |
 | `extensie/` | De extensie zelf: alles wat Firefox laadt |
 | `extensie/zijbalk/` | Het regiepaneel |
+| `extensie/pop-up/` | De pop-up "In de wachtrij zetten" op YouTube |
 | `extensie/achtergrond/` | Het achtergrondscript: beheert de wachtrij en bewaart hem |
 | `extensie/gedeeld/` | De huisstijl en de regels van de wachtrij |
 | `extensie/youtube/` | Alles wat met YouTube te maken heeft |

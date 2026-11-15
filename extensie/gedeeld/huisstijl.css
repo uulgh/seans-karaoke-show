@@ -6,35 +6,16 @@
    Wil je een kleur aanpassen? Dat doe je alleen hier, bij de variabelen.
    ========================================================================== */
 
-/* --- Lettertypes (zitten in de extensie; er wordt niets van internet geladen) */
+/* --- Lettertypes (staan in een eigen bestand, zie lettertypes.css) --------- */
 
-@font-face {
-  font-family: "Monoton";
-  src: url("../lettertypes/Monoton-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: "Rubik";
-  src: url("../lettertypes/Rubik-Variabel.ttf") format("truetype");
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("../lettertypes/Inter-Variabel.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: block;
-}
+@import url("lettertypes.css");
 
 /* --- Variabelen ---------------------------------------------------------- */
 
-:root {
+/* :root geldt voor gewone pagina's, :host voor de pop-up op YouTube (die
+   in een afgeschermd stukje van de pagina staat). */
+:root,
+:host {
   /* Kleuren */
   --kleur-achtergrond: #0c0a1a;
   --kleur-zijbalk: #120e26;
@@ -349,6 +330,52 @@ input {
 .vinkje__invoer:focus-visible + .vinkje__vak {
   outline: 2px solid var(--kleur-cyaan);
   outline-offset: 2px;
+}
+
+/* --- Invulvelden ---------------------------------------------------------- */
+
+.veld {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.veld__label {
+  font-family: var(--letter-kop);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--kleur-gedempt);
+}
+
+.veld__invoer {
+  width: 100%;
+  min-height: var(--knophoogte);
+  padding: 0 12px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 12px;
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--letter-tekst);
+  font-size: 15px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.veld__invoer::placeholder {
+  color: var(--kleur-gedempt);
+  opacity: 0.7;
+}
+
+.veld__invoer:focus-visible {
+  outline: none;
+  border-color: var(--kleur-cyaan);
+  box-shadow: var(--gloed-cyaan-vlak);
+}
+
+.veld__invoer:disabled {
+  opacity: 0.55;
 }
 
 /* --- Namen van aanvragers ------------------------------------------------- */

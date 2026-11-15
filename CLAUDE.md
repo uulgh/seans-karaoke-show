@@ -51,8 +51,9 @@ extensie/                 ← alles wat Firefox laadt (geen bouwstap)
     opslag.js             ←   lezen/schrijven van de toestand in storage.local
     toevoegen.js          ←   een YouTube-video in de wachtrij zetten
   zijbalk/                ← het regiepaneel op de laptop
-  gedeeld/                ← voor alle schermen: huisstijl.css, wachtrij.js (de
-                            toestand en de regels), titel-ontleden.js
+  pop-up/                 ← de pop-up "In de wachtrij zetten" (draait in YouTube-pagina's)
+  gedeeld/                ← voor alle schermen: huisstijl.css, lettertypes.css,
+                            wachtrij.js (de toestand en de regels), titel-ontleden.js
   lettertypes/            ← Monoton, Rubik, Inter + licenties/
   iconen/                 ← icoon van de extensie
   youtube/                ← ALLE kennis over YouTube: adressen, gegevens opvragen
@@ -81,6 +82,19 @@ ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
   bovenaan, buiten functies. Code zonder Firefox erin (`gedeeld/wachtrij.js`,
   `gedeeld/titel-ontleden.js`, `youtube/youtube-adressen.js`) werkt met
   toestand-in, nieuwe-toestand-uit en heeft tests.
+- **Scripts in YouTube-pagina's** (content scripts) zijn gewone scripts, geen
+  modules. Ze delen één afgeschermde wereld en praten met elkaar via een
+  globale naam, bijvoorbeeld `karaokePopUp.open({ videoId, titelHint })`.
+  Code die ook het achtergrondscript nodig heeft (zoals titel-ontleden) blijft
+  in de achtergrond; het pagina-script vraagt het op met een bericht.
+- **Alles wat we in een YouTube-pagina tonen** staat in een gesloten shadow
+  root, in de "top layer" (`<dialog>.showModal()` of `popover`), en laadt
+  `gedeeld/huisstijl.css` via een `<link>`. Die bestanden moeten in
+  `web_accessible_resources` staan. `@font-face` werkt niet binnen een shadow
+  root; daarom voegt het manifest `gedeeld/lettertypes.css` aan de pagina toe.
+- Toetsen die in onze pop-up worden getypt, schermen we af van YouTube's
+  sneltoetsen met een `stopImmediatePropagation` op `window` (capture,
+  aangemeld bij `document_start`).
 - Firefox start niet met een relatief pad naar een profiel; daarom rekent
   `web-ext-config.mjs` het volledige pad uit.
 - **YouTube-code staat apart** in `extensie/youtube/`. Kiezers (selectors)
@@ -96,6 +110,26 @@ ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
   YouTube en van gasten en zijn dus niet te vertrouwen.
 - Vraag alleen de rechten (permissions) die de fase echt nodig heeft.
 - Moet werken op Windows, macOS en Linux.
+
+## Testen in de echte Firefox (voor Claude)
+
+`npm test` en `npm run controle` vangen niet alles. Wat met Firefox of
+YouTube zelf te maken heeft, test Claude zo, in een tijdelijke map buiten het
+project:
+
+1. Kopieer `extensie/` en voeg aan de kopie een extra achtergrondscript en
+   content script toe die de échte functies van de extensie aanroepen (via
+   `import` uit de achtergrond) en de uitkomst teruggeven.
+2. Start de kopie met `web-ext run --arg=-headless
+   --arg=--remote-debugging-port=9333` en een eigen wegwerpprofiel.
+3. Bestuur Firefox met WebDriver BiDi over een WebSocket
+   (`ws://127.0.0.1:9333/session`, Node heeft `WebSocket` ingebouwd):
+   `script.evaluate`, `input.performActions` (echte toetsaanslagen) en
+   `browsingContext.captureScreenshot` (schermafbeelding bekijken).
+4. Stop daarna alle `firefox.exe` met `-headless` in de opdrachtregel.
+
+Niet na te doen op deze manier: klikken in het rechtsklikmenu van Firefox en
+alles met een echt tweede scherm. Zeg dat er eerlijk bij.
 
 ## Huisstijl (optie A, Neonbar)
 

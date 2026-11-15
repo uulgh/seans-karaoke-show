@@ -1,0 +1,31 @@
+/* De drie lettertypes van de huisstijl. Ze zitten in de extensie; er wordt
+   niets van internet geladen.
+
+   Dit staat in een eigen bestand omdat het op twee manieren wordt gebruikt:
+   - de eigen pagina's (zoals de zijbalk) laden het via huisstijl.css;
+   - op YouTube-pagina's wordt alléén dit bestand toegevoegd, zodat de pop-up
+     de lettertypes kan gebruiken zonder dat er iets aan YouTube verandert. */
+
+@font-face {
+  font-family: "Monoton";
+  src: url("../lettertypes/Monoton-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../lettertypes/Rubik-Variabel.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../lettertypes/Inter-Variabel.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}

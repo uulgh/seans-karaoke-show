@@ -30,10 +30,16 @@ Sean heeft **geen programmeerervaring**.
 | Commando | Wat het doet |
 | --- | --- |
 | `npm start` | Start een test-Firefox met de extensie erin (`web-ext run`) |
+| `npm test` | Draait de automatische tests uit `tests/` (ingebouwd in Node, niets extra's nodig) |
 | `npm run controle` | Controleert de extensie op fouten (`web-ext lint`) |
 | `npm run pakket` | Maakt een zip van de extensie in `pakketten/` |
 
-Draai `npm run controle` vóór elke commit; er mogen geen fouten zijn.
+Draai `npm test` en `npm run controle` vóór elke commit; er mogen geen fouten zijn.
+
+Code zonder Firefox of YouTube erin (zoals het ontleden van titels en straks
+de eerlijke beurtverdeling) staat in een eigen bestand en krijgt tests in
+`tests/`. Gaat er op een avond een titel verkeerd, zet hem dan als nieuw geval
+in `tests/titel-ontleden.test.js`.
 
 ## Mappen
 
@@ -46,6 +52,7 @@ extensie/                 ← alles wat Firefox laadt (geen bouwstap)
   lettertypes/            ← Monoton, Rubik, Inter + licenties/
   iconen/                 ← icoon van de extensie
   youtube/                ← (vanaf fase 2) ALLE code die met YouTube-pagina's praat
+tests/                    ← automatische tests (komen niet in de extensie)
 ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
 ```
 

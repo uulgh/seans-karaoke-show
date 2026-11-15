@@ -27,17 +27,30 @@ voorbeeldgegevens zodat de vormgeving te beoordelen is.
 **Klaar als:** `npm start` een Firefox opent met de zijbalk in neonstijl, en
 `npm run controle` geen fouten geeft.
 
-## Fase 2 — Wachtrij en knop ⬜
+## Fase 2 — Wachtrij en knop 🔨
 
 Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
 
-- Knop "+ Wachtrij" op elke YouTube-thumbnail (pil rechtsboven)
-- Reserve: "Zet in de karaoke-wachtrij" in het rechtsklikmenu bij YouTube-links
-- Pop-up "In de wachtrij zetten" met Artiest, Titel en Aangevraagd door
-- Artiest en titel automatisch uit de videotitel halen
-  ("ABBA - Mamma Mia (Karaoke)" → ABBA / Mamma Mia)
-- De wachtrij leeft in het achtergrondscript en wordt bewaard (`storage.local`)
-- De zijbalk toont de echte wachtrij; de voorbeeldgegevens verdwijnen
+- ✅ **Stap 1 — Artiest en titel uit de videotitel halen**
+  ("ABBA - Mamma Mia (Karaoke)" → ABBA / Mamma Mia), met automatische tests
+  (`npm test`)
+- ⬜ **Stap 2 — De echte wachtrij**: leeft in het achtergrondscript en wordt
+  bewaard (`storage.local`); de zijbalk toont de echte wachtrij en de
+  voorbeeldgegevens verdwijnen; het rechtsklikmenu "Zet in de
+  karaoke-wachtrij" voegt een nummer toe; verwijderen werkt al; `npm start`
+  krijgt een vast testprofiel zodat "blijft bewaard" te testen is
+- ⬜ **Stap 3 — Pop-up "In de wachtrij zetten"** met Artiest, Titel en
+  Aangevraagd door, plus een knop om artiest en titel om te wisselen
+- ⬜ **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil rechtsboven)
+
+Afgesproken keuzes voor deze fase:
+
+- De pop-up staat in de YouTube-pagina zelf, afgeschermd van YouTube's opmaak.
+- Thumbnails vinden we via de videolink, niet via YouTube's onderdeelnamen.
+- Dezelfde video mag twee keer in de wachtrij (met een melding).
+- Shorts krijgen geen knop.
+- De schakelaars onthouden hun stand, maar doen nog niets.
+- Nieuwe toestemmingen: opslag, menu's en toegang tot youtube.com.
 
 **Klaar als:** een nummer toevoegen op YouTube direct in de zijbalk verschijnt
 en er na het herstarten van Firefox nog staat.

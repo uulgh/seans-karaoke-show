@@ -10,9 +10,10 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
   video schermvullend.
 - Je laptop blijft stil; het geluid komt alleen van het karaokescherm.
 
-> **Stand van zaken:** fase 1 van 8 is klaar. De extensie laadt en de zijbalk
-> is te zien in de huisstijl, met voorbeeldgegevens. De knoppen doen nog
-> niets. Zie [PLAN.md](PLAN.md) voor wat er nog komt.
+> **Stand van zaken:** fase 1 van 8 is klaar en fase 2 is begonnen. De
+> extensie laadt en de zijbalk is te zien in de huisstijl, met
+> voorbeeldgegevens. De knoppen doen nog niets. Zie [PLAN.md](PLAN.md) voor
+> wat er nog komt.
 
 ## Wat je nodig hebt
 
@@ -50,6 +51,7 @@ te drukken.
 
 | Commando | Wat het doet |
 | --- | --- |
+| `npm test` | Draait de automatische tests (bijvoorbeeld: wordt "ABBA - Mamma Mia (Karaoke)" goed gesplitst?) |
 | `npm run controle` | Controleert de extensie op fouten |
 | `npm run pakket` | Maakt een zip van de extensie in de map `pakketten/` |
 

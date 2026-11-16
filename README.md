@@ -10,8 +10,8 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
   video schermvullend.
 - Je laptop blijft stil; het geluid komt alleen van het karaokescherm.
 
-> **Stand van zaken:** fase 1 tot en met 5 van de 8 zijn gebouwd en getest met
-> een echt tweede scherm: de wachtrij, de knop op YouTube, het spelervenster
+> **Stand van zaken:** fase 1 tot en met 5 van de 8 zijn gebouwd en getest:
+> de wachtrij, de knop op YouTube, het spelervenster
 > met wachtscherm en aftellen, de bediening, de eerlijke beurtverdeling en de
 > achtergrondmuziek. Wat nog komt: ondertekenen bij Mozilla (zodat de extensie
 > blijvend te installeren is), de installatiescripts en de proefavond. Zie

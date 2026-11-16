@@ -28,8 +28,7 @@ voorbeeldgegevens zodat de vormgeving te beoordelen is.
 `npm run controle` geen fouten geeft.
 
 > **Stand op 16 november 2026:** fase 1 tot en met 5 zijn gebouwd en samen
-> met Sean getest, met een echt tweede scherm. Alle punten van de testlijst
-> onderaan werkten. De volgende stap is fase 6: ondertekenen bij Mozilla.
+> met Sean getest. Alle punten van de testlijst onderaan werkten. De volgende stap is fase 6: ondertekenen bij Mozilla.
 
 ## Fase 2 — Wachtrij en knop ✅
 
@@ -215,6 +214,9 @@ voor stap getest. Alle punten werkten:
 Stap 1 tot en met 12 zijn getest in Seans eigen Firefox, met de extensie
 tijdelijk geladen via `about:debugging`. Stap 13 in de test-Firefox, omdat een
 tijdelijk geladen extensie zijn gegevens kwijtraakt als Firefox sluit.
+
+Nog na te vragen bij Sean: of stap 3 tot en met 5 op een echte tv, beamer of
+monitor zijn gedaan, of op het laptopscherm.
 
 Nog niet vergeleken: de ontwerpafbeeldingen. De map `ontwerp/` was leeg; de
 vormgeving volgt de beschrijving uit de opdracht.

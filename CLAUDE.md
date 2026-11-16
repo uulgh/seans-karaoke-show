@@ -40,6 +40,11 @@ Sean heeft **geen programmeerervaring**.
 
 Draai `npm test` en `npm run controle` vóór elke commit; er mogen geen fouten zijn.
 
+**Op Seans computer blokkeert Windows PowerShell `npm`** ("running scripts is
+disabled on this system"). Geef Sean commando's daarom altijd als `npm.cmd`,
+bijvoorbeeld `npm.cmd start`. Verander de beveiligingsinstelling van
+PowerShell niet.
+
 Code zonder Firefox of YouTube erin (zoals het ontleden van titels en straks
 de eerlijke beurtverdeling) staat in een eigen bestand en krijgt tests in
 `tests/`. Gaat er op een avond een titel verkeerd, zet hem dan als nieuw geval

@@ -105,6 +105,11 @@ test-Firefox zelf installeren en hij komt later in het installatiescript.
    npm start
    ```
 
+**Windows PowerShell:** krijg je de melding "running scripts is disabled on
+this system"? Typ dan `npm.cmd` in plaats van `npm`, dus `npm.cmd start`,
+`npm.cmd test` enzovoort. Windows blokkeert daar het bestandje `npm.ps1`;
+`npm.cmd` doet hetzelfde en wordt niet geblokkeerd.
+
 Er opent een aparte test-Firefox met de extensie er al in, op een
 YouTube-pagina met karaokevideo's. De zijbalk "Sean's Karaoke Show" gaat
 vanzelf open. Zie je hem niet? Klik dan op het roze microfoon-icoon in de

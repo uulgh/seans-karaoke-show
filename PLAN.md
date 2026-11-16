@@ -28,7 +28,9 @@ voorbeeldgegevens zodat de vormgeving te beoordelen is.
 `npm run controle` geen fouten geeft.
 
 > **Stand op 16 november 2026:** fase 1 tot en met 5 zijn gebouwd en samen
-> met Sean getest. Alle punten van de testlijst onderaan werkten. De volgende stap is fase 6: ondertekenen bij Mozilla.
+> met Sean getest. Alle punten van de testlijst onderaan werkten. 
+> Fase 6 is ook klaar: versie 1.0.0 is door Mozilla ondertekend en staat
+> blijvend in Seans Firefox. De volgende stap is fase 7.
 
 ## Fase 2 — Wachtrij en knop ✅
 
@@ -138,7 +140,7 @@ Keuzes in deze fase:
   YouTube zelf door naar de volgende video.
 - Een logo mag hooguit 2 MB zijn.
 
-## Fase 6 — Ondertekenen bij Mozilla (unlisted) 🔨
+## Fase 6 — Ondertekenen bij Mozilla (unlisted) ✅
 
 - ✅ Commando `npm.cmd run onderteken` (`hulpmiddelen/onderteken.mjs`): leest
   de sleutels uit `.env`, controleert de extensie en stuurt hem naar Mozilla
@@ -148,7 +150,7 @@ Keuzes in deze fase:
 - ✅ Sean: account bij addons.mozilla.org, sleutels aanmaken en in `.env` zetten
 - ✅ Sean: `npm.cmd run onderteken` uitvoeren → een ondertekend `.xpi`-bestand
   (versie 1.0.0, 16 november 2026)
-- ⬜ Sean: het bestand installeren in zijn eigen Firefox en testen dat de
+- ✅ Sean: het bestand installeren in zijn eigen Firefox en testen dat de
   extensie en de wachtrij er na een herstart nog staan
 
 Keuzes in deze fase:

@@ -10,12 +10,10 @@ van een tweede scherm (tv, beamer of monitor) een **karaokescherm**.
   video schermvullend.
 - Je laptop blijft stil; het geluid komt alleen van het karaokescherm.
 
-> **Stand van zaken:** fase 1 tot en met 5 van de 8 zijn gebouwd en getest:
-> de wachtrij, de knop op YouTube, het spelervenster
-> met wachtscherm en aftellen, de bediening, de eerlijke beurtverdeling en de
-> achtergrondmuziek. Wat nog komt: ondertekenen bij Mozilla (zodat de extensie
-> blijvend te installeren is), de installatiescripts en de proefavond. Zie
-> [PLAN.md](PLAN.md).
+> **Stand van zaken:** fase 1 tot en met 6 van de 8 zijn klaar. De extensie
+> werkt, is getest en versie 1.0.0 is door Mozilla ondertekend, zodat hij
+> blijvend te installeren is. Wat nog komt: de installatiescripts met een
+> GitHub-release, en de proefavond. Zie [PLAN.md](PLAN.md).
 
 ## Wat je nodig hebt
 

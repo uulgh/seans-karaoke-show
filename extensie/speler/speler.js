@@ -212,7 +212,27 @@
       }
     }
 
-    // 3. De video is te zien, schermvullend.
+    // 3. Loopt de video echt? Pas dan mag het wachtscherm weg.
+    const loopt = !video.paused && video.currentTime > 0;
+    if (!gemeldBegonnen && !reclame && loopt) {
+      gemeldBegonnen = true;
+      meld("begonnen");
+    }
+
+    if (!gemeldBegonnen && !(reclame && loopt)) {
+      // De video zou moeten spelen maar staat nog stil (bijvoorbeeld omdat
+      // Firefox het afspelen blokkeert). Het publiek blijft het wachtscherm
+      // zien, en we proberen het om de paar seconden opnieuw.
+      toonWachtlaag();
+      scherm.teken({ nummer: nuBezig, daarna: wachtrij, feestnaam: instellingen.feestnaam, logo, bezig: "Daar gaan we…" });
+      if (video.paused && nu - laatstePoging > 3000) speelAf();
+      if (!gemeldProbleem && nu - Math.max(geladenOp, speler.aftellenTot) > 12000) {
+        meldProbleem(YouTube.cookievraagOpen() ? "cookies" : "start");
+      }
+      return;
+    }
+
+    // 4. De video is te zien, schermvullend.
     vulScherm();
     scherm.verberg();
     if (reclame) {
@@ -222,16 +242,6 @@
     }
 
     zetVolume(1);
-
-    if (!gemeldBegonnen && !video.paused && video.currentTime > 0) {
-      gemeldBegonnen = true;
-      meld("begonnen");
-    }
-    // De video zou moeten spelen maar staat stil (en wij hebben hem niet gepauzeerd).
-    // Dan proberen we het om de paar seconden opnieuw.
-    if (!gemeldBegonnen && video.paused && speler.fase !== "gepauzeerd" && nu - laatstePoging > 3000) {
-      speelAf();
-    }
 
     // Vangnet: soms komt het "afgelopen"-signaal van de video niet door.
     if (gemeldBegonnen && video.ended) nummerAfgelopen();

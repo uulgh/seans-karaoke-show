@@ -24,7 +24,9 @@
   inset: 0;
   z-index: 2147483600;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  /* minmax(0, ...) zorgt dat een hele lange naam het scherm niet breder kan maken */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: calc(var(--u) * 1.4);
   box-sizing: border-box;
   padding: calc(var(--u) * 2.8) calc(var(--u) * 4.2);
@@ -307,11 +309,14 @@
   align-items: center;
   justify-content: space-between;
   gap: calc(var(--u) * 3);
+  min-width: 0;
   height: calc(var(--u) * 7.6);
 }
 
 .voet__muziek {
+  flex: none;
   font-size: calc(var(--u) * 1.5);
+  white-space: nowrap;
   color: var(--kleur-gedempt);
 }
 
@@ -325,7 +330,7 @@
   min-width: 0;
   overflow: hidden;
   font-family: var(--letter-kop);
-  font-size: calc(var(--u) * 2.5);
+  font-size: calc(var(--u) * 2.5 * var(--krimp, 1));
   font-weight: 700;
   text-align: right;
   text-overflow: ellipsis;

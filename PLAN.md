@@ -27,7 +27,13 @@ voorbeeldgegevens zodat de vormgeving te beoordelen is.
 **Klaar als:** `npm start` een Firefox opent met de zijbalk in neonstijl, en
 `npm run controle` geen fouten geeft.
 
-## Fase 2 — Wachtrij en knop 🔨
+> **Stand op 16 november 2026:** fase 1 tot en met 5 zijn gebouwd. Sean heeft
+> gevraagd om eerst alles te bouwen en het daarna samen stap voor stap te
+> testen. 🧪 betekent: gebouwd en door Claude getest in een onzichtbare
+> Firefox, maar nog niet samen met Sean doorgelopen. De testlijst staat
+> onderaan dit bestand.
+
+## Fase 2 — Wachtrij en knop 🧪
 
 Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
 
@@ -45,54 +51,95 @@ Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
   rechtsklikmenu opent nu de pop-up; namen die al gebruikt zijn worden
   voorgesteld; staat de link niet op een YouTube-pagina, dan gaat het nummer
   meteen (zonder naam) in de wachtrij
-- ⬜ **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil rechtsboven)
+- 🧪 **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil
+  rechtsboven), en ook op de video die je aan het bekijken bent
 
-Afgesproken keuzes voor deze fase:
+Keuzes in deze fase:
 
 - De pop-up staat in de YouTube-pagina zelf, afgeschermd van YouTube's opmaak.
 - Thumbnails vinden we via de videolink, niet via YouTube's onderdeelnamen.
 - Dezelfde video mag twee keer in de wachtrij (met een melding).
-- Shorts krijgen geen knop.
-- De schakelaars onthouden hun stand, maar doen nog niets.
-- Nieuwe toestemmingen: opslag, menu's en toegang tot youtube.com.
+- Shorts, afspeellijsten en hoofdstukken binnen een video krijgen geen knop.
+- Toestemmingen: opslag, menu's en toegang tot youtube.com.
 
 **Klaar als:** een nummer toevoegen op YouTube direct in de zijbalk verschijnt
 en er na het herstarten van Firefox nog staat.
 
-## Fase 3 — Spelervenster, wachtscherm, aftellen en stille laptop ⬜
+## Fase 3 — Spelervenster, wachtscherm, aftellen en stille laptop 🧪
 
 Doel: het tweede scherm werkt.
 
-- Knop "Spelerscherm openen": apart venster zonder adresbalk
-- Venster onthoudt zijn plek; eerst positie zetten, dán volledig scherm
-  (Firefox kan dat niet in één keer)
-- Knop "Opnieuw plaatsen" voor als het scherm verandert
-- Wachtscherm: VOLGENDE, artiest, titel, "Gevraagd door", lijst "Daarna",
-  feestnaam, "maak je klaar!"
-- Start → (optioneel) aftellen 5-4-3-2-1 → video schermvullend, zonder
+- 🧪 Knop "Spelerscherm openen": apart venster zonder adresbalk
+- 🧪 De eerste keer opent het venster klein. Sean sleept het naar het tweede
+  scherm en klikt op "Dit scherm gebruiken" (in het venster) of "Hier
+  vastzetten" (in de zijbalk). De plek wordt onthouden en het venster gaat op
+  volledig scherm. De volgende keer gaat dat vanzelf: eerst de plek, dan
+  volledig scherm (Firefox kan dat niet in één keer).
+- 🧪 Knop "Opnieuw plaatsen" voor als het scherm verandert
+- 🧪 Wachtscherm: VOLGENDE, artiest, titel, "Gevraagd door", lijst "Daarna",
+  feestnaam, "maak je klaar!". Lange titels en namen worden kleiner.
+- 🧪 Start → (optioneel) aftellen 5-4-3-2-1 → video schermvullend, zonder
   YouTube-knoppen eromheen
-- Na afloop automatisch terug naar het wachtscherm; YouTube start zelf niets
-- YouTube-tabbladen in het laptopvenster worden gedempt
-- Uitleg: automatisch afspelen met geluid toestaan voor youtube.com
+- 🧪 Na afloop automatisch terug naar het wachtscherm; YouTube start zelf niets
+- 🧪 YouTube-tabbladen in het laptopvenster worden gedempt zolang het
+  spelervenster open is
+- 🧪 Meldingen in de zijbalk als het misgaat: afspelen geblokkeerd, YouTube
+  vraagt om cookies, de video start niet, YouTube toont reclame
+
+Keuzes in deze fase:
+
+- **Het wachtscherm is een laag over de YouTube-pagina** in het spelervenster.
+  Alles zit zo in één tabblad en het aftellen loopt door terwijl de video al
+  laadt.
+- **Het spelervenster staat altijd op een pagina van YouTube**: de pagina van
+  het nummer, de pagina van de achtergrondmuziek, of een lege "rustpagina"
+  (`youtube.com/robots.txt`, alleen wat tekst). Achter het `#` in het adres
+  staat welke rol de pagina heeft.
+- **De video wordt schermvullend gemaakt met opmaak**, niet met YouTube's eigen
+  volledig-scherm-knop: de video en elk vak eromheen vullen het venster, de
+  rest is onzichtbaar.
+- **Dempen gebeurt alleen zolang het spelervenster open is.** Zet Sean zelf het
+  geluid van een tabblad aan, dan blijft dat zo.
+- **Reclame van YouTube blokkeren we niet zelf.** Speelt YouTube reclame, dan
+  is die op het tweede scherm te zien en meldt de zijbalk het. uBlock Origin
+  komt in fase 7.
 
 **Klaar als:** een hele ronde werkt: toevoegen → Start → aftellen → video op
 het tweede scherm → wachtscherm met het volgende nummer.
 
-## Fase 4 — Bediening en eerlijke beurt ⬜
+## Fase 4 — Bediening en eerlijke beurt 🧪
 
-- "Nu bezig" met echte voortgangsbalk en tijd; Pauze, Stop en Overslaan
-- Wachtrij: pijltjes, slepen en verwijderen
-- Eerlijke beurtverdeling aan/uit, met rondenummers per aanvrager
-- Label "zelf verplaatst" voor nummers die Sean met de hand verzet
-- Automatische test: Lisa vraagt 3 nummers aan, daarna Tom 1 →
+- 🧪 "Nu bezig" met echte voortgangsbalk en tijd; Pauze/Verder, Stop en Overslaan
+- 🧪 Wachtrij: pijltjes, slepen en verwijderen
+- 🧪 Eerlijke beurtverdeling aan/uit, met rondenummers per aanvrager
+- 🧪 Label "zelf verplaatst" voor nummers die Sean met de hand verzet; een
+  klik op het label deelt het nummer weer eerlijk in
+- ✅ Automatische test: Lisa vraagt 3 nummers aan, daarna Tom 1 →
   volgorde Lisa, Tom, Lisa, Lisa
 
-## Fase 5 — Achtergrondmuziek en feestnaam ⬜
+Keuzes in deze fase:
 
-- Instelbare YouTube-link (video of afspeellijst) als achtergrondmuziek
-- Speelt zacht op het wachtscherm, stopt bij het aftellen, gaat daarna verder
-- Volumeregelaar en schakelaar in de zijbalk
-- Instellingenpagina: feestnaam (standaard "Karaoke-avond") en eigen logo
+- **Stop** zet het nummer terug vooraan in de wachtrij; het telt niet als
+  gezongen. **Overslaan** telt wel als gezongen.
+- Het label "zelf verplaatst" is alleen te zien als de eerlijke beurt aan staat.
+- Start kan niet terwijl er een nummer bezig is.
+
+## Fase 5 — Achtergrondmuziek en feestnaam 🧪
+
+- 🧪 Instelbare YouTube-link (video of afspeellijst) als achtergrondmuziek
+- 🧪 Speelt zacht op het wachtscherm, stopt bij Start, gaat daarna verder waar
+  hij was
+- 🧪 Volumeregelaar en schakelaar onderin de zijbalk
+- 🧪 Instellingen (het tandwiel onderin de zijbalk): feestnaam (standaard
+  "Karaoke-avond"), eigen logo, muzieklink
+- 🧪 "Nieuwe avond": wist de wachtrij en begint de beurtentelling opnieuw
+
+Keuzes in deze fase:
+
+- De instellingen staan in de zijbalk zelf, niet op een aparte pagina.
+- Een losse video als muziek wordt steeds herhaald; in een afspeellijst gaat
+  YouTube zelf door naar de volgende video.
+- Een logo mag hooguit 2 MB zijn.
 
 ## Fase 6 — Ondertekenen bij Mozilla (unlisted) ⬜
 
@@ -127,7 +174,7 @@ het tweede scherm → wachtscherm met het volgende nummer.
 | **Eén "waarheid" in het achtergrondscript** | Wachtrij en instellingen staan op één plek en worden bewaard met `storage.local`. Zijbalk en spelervenster tonen alleen wat het achtergrondscript zegt. Zo kunnen ze nooit uit elkaar lopen. |
 | **YouTube-code apart** (map `extensie/youtube/`, vanaf fase 2) | YouTube verandert geregeld zijn pagina's. Alle "waar staat de video, waar staat de titel" staat straks in één bestand, zodat een reparatie maar één plek raakt. |
 | **Gewone YouTube-kijkpagina in het spelervenster** | Sommige video's mogen niet ingesloten worden afgespeeld. De gewone kijkpagina werkt altijd. |
-| **Wachtscherm als laag over de YouTube-pagina** (voorlopige keuze, definitief in fase 3) | Dan zit alles in één tabblad: de achtergrondmuziek speelt op dezelfde gewone YouTube-pagina, het venster blijft op volledig scherm en de autoplay-toestemming geldt maar voor één site. |
+| **Wachtscherm als laag over de YouTube-pagina** | Dan zit alles in één tabblad: de achtergrondmuziek speelt op dezelfde gewone YouTube-pagina, het venster blijft op volledig scherm en de autoplay-toestemming geldt maar voor één site. |
 | **Lettertypes in de extensie** | Niets wordt van internet geladen; het werkt dus ook als de wifi hapert en het is privacyvriendelijk. |
 | **Rechten pas vragen als ze nodig zijn** | Fase 1 vraagt geen enkele toestemming. Elke fase voegt alleen toe wat die fase nodig heeft. |
 
@@ -141,3 +188,32 @@ het tweede scherm → wachtscherm met het volgende nummer.
    als aanvrager "Iedereen".
 4. Een nummer dat Sean zelf verplaatst, krijgt het label "zelf verplaatst" en
    blijft op die plek.
+
+---
+
+## Testlijst: samen doorlopen met Sean
+
+Alles hieronder is gebouwd. Claude heeft het getest in een onzichtbare
+Firefox op de echte YouTube, tenzij er "niet getest" bij staat. Samen lopen
+we het in deze volgorde door, met een echt tweede scherm.
+
+1. **Knop "+ Wachtrij"** op de zoekpagina, bij het scrollen en op een video
+   die je bekijkt. Gewoon klikken op een video werkt nog zoals altijd.
+2. **Pop-up**: naam typen, Enter, Escape, omwisselen, dubbele video.
+   *Niet getest:* de lijst met voorgestelde namen.
+3. **Spelerscherm openen**, naar het tweede scherm slepen, vastzetten.
+   *Niet getest:* een echt tweede scherm, en of het venster de volgende keer
+   vanzelf op dat scherm terechtkomt.
+4. **Wachtscherm** op het tweede scherm: leesbaar van een afstand? Lange titel?
+5. **Start**: aftellen, video schermvullend, geluid uit de speaker.
+6. **Pauze, Verder, Stop, Overslaan** en de voortgangsbalk.
+7. **Vanzelf terug** naar het wachtscherm als het nummer is afgelopen.
+8. **Stille laptop**: een YouTube-tabblad op de laptop maakt geen geluid.
+9. **Eerlijke beurt**: Lisa 3 nummers, daarna Tom 1 → Lisa, Tom, Lisa, Lisa.
+10. **Pijltjes en slepen**; label "zelf verplaatst".
+    *Niet getest:* het slepen met de muis.
+11. **Achtergrondmuziek**: link instellen, aan/uit, volume, stopt bij Start en
+    gaat daarna verder.
+12. **Feestnaam en logo** op het wachtscherm.
+13. **Firefox sluiten en weer openen**: wachtrij en instellingen staan er nog.
+14. **Automatisch afspelen** in een gewone Firefox toestaan (zie README).

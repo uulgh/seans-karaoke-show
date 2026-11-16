@@ -19,6 +19,10 @@ export default {
     firefoxProfile: testprofiel,
     profileCreateIfMissing: true,
     keepProfileChanges: true,
+    // In de test-Firefox mag elke site vanzelf afspelen met geluid. Zo werkt
+    // het spelervenster meteen. In een gewone Firefox stel je dit zelf in
+    // (zie README, "Automatisch afspelen met geluid").
+    pref: ["media.autoplay.default=0"],
     // De test-Firefox opent meteen YouTube met karaokevideo's.
     startUrl: ["https://www.youtube.com/results?search_query=karaoke"],
   },

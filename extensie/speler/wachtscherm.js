@@ -159,6 +159,7 @@
     pasEen(deel.artiest);
     pasEen(deel.naam);
     pasEen(deel.feestNaam);
+    pasEen(deel.klaar, 0.55);
   }
 
   // --- Tekenen -------------------------------------------------------------------------

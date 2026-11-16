@@ -27,13 +27,11 @@ voorbeeldgegevens zodat de vormgeving te beoordelen is.
 **Klaar als:** `npm start` een Firefox opent met de zijbalk in neonstijl, en
 `npm run controle` geen fouten geeft.
 
-> **Stand op 16 november 2026:** fase 1 tot en met 5 zijn gebouwd. Sean heeft
-> gevraagd om eerst alles te bouwen en het daarna samen stap voor stap te
-> testen. 🧪 betekent: gebouwd en door Claude getest in een onzichtbare
-> Firefox, maar nog niet samen met Sean doorgelopen. De testlijst staat
-> onderaan dit bestand.
+> **Stand op 16 november 2026:** fase 1 tot en met 5 zijn gebouwd en samen
+> met Sean getest, met een echt tweede scherm. Alle punten van de testlijst
+> onderaan werkten. De volgende stap is fase 6: ondertekenen bij Mozilla.
 
-## Fase 2 — Wachtrij en knop 🧪
+## Fase 2 — Wachtrij en knop ✅
 
 Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
 
@@ -51,7 +49,7 @@ Doel: nummers vanaf YouTube in een echte, bewaarde wachtrij zetten.
   rechtsklikmenu opent nu de pop-up; namen die al gebruikt zijn worden
   voorgesteld; staat de link niet op een YouTube-pagina, dan gaat het nummer
   meteen (zonder naam) in de wachtrij
-- 🧪 **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil
+- ✅ **Stap 4 — Knop "+ Wachtrij"** op elke YouTube-thumbnail (pil
   rechtsboven), en ook op de video die je aan het bekijken bent
 
 Keuzes in deze fase:
@@ -65,25 +63,25 @@ Keuzes in deze fase:
 **Klaar als:** een nummer toevoegen op YouTube direct in de zijbalk verschijnt
 en er na het herstarten van Firefox nog staat.
 
-## Fase 3 — Spelervenster, wachtscherm, aftellen en stille laptop 🧪
+## Fase 3 — Spelervenster, wachtscherm, aftellen en stille laptop ✅
 
 Doel: het tweede scherm werkt.
 
-- 🧪 Knop "Spelerscherm openen": apart venster zonder adresbalk
-- 🧪 De eerste keer opent het venster klein. Sean sleept het naar het tweede
+- ✅ Knop "Spelerscherm openen": apart venster zonder adresbalk
+- ✅ De eerste keer opent het venster klein. Sean sleept het naar het tweede
   scherm en klikt op "Dit scherm gebruiken" (in het venster) of "Hier
   vastzetten" (in de zijbalk). De plek wordt onthouden en het venster gaat op
   volledig scherm. De volgende keer gaat dat vanzelf: eerst de plek, dan
   volledig scherm (Firefox kan dat niet in één keer).
-- 🧪 Knop "Opnieuw plaatsen" voor als het scherm verandert
-- 🧪 Wachtscherm: VOLGENDE, artiest, titel, "Gevraagd door", lijst "Daarna",
+- ✅ Knop "Opnieuw plaatsen" voor als het scherm verandert
+- ✅ Wachtscherm: VOLGENDE, artiest, titel, "Gevraagd door", lijst "Daarna",
   feestnaam, "maak je klaar!". Lange titels en namen worden kleiner.
-- 🧪 Start → (optioneel) aftellen 5-4-3-2-1 → video schermvullend, zonder
+- ✅ Start → (optioneel) aftellen 5-4-3-2-1 → video schermvullend, zonder
   YouTube-knoppen eromheen
-- 🧪 Na afloop automatisch terug naar het wachtscherm; YouTube start zelf niets
-- 🧪 YouTube-tabbladen in het laptopvenster worden gedempt zolang het
+- ✅ Na afloop automatisch terug naar het wachtscherm; YouTube start zelf niets
+- ✅ YouTube-tabbladen in het laptopvenster worden gedempt zolang het
   spelervenster open is
-- 🧪 Meldingen in de zijbalk als het misgaat: afspelen geblokkeerd, YouTube
+- ✅ Meldingen in de zijbalk als het misgaat: afspelen geblokkeerd, YouTube
   vraagt om cookies, de video start niet, YouTube toont reclame
 
 Keuzes in deze fase:
@@ -107,12 +105,12 @@ Keuzes in deze fase:
 **Klaar als:** een hele ronde werkt: toevoegen → Start → aftellen → video op
 het tweede scherm → wachtscherm met het volgende nummer.
 
-## Fase 4 — Bediening en eerlijke beurt 🧪
+## Fase 4 — Bediening en eerlijke beurt ✅
 
-- 🧪 "Nu bezig" met echte voortgangsbalk en tijd; Pauze/Verder, Stop en Overslaan
-- 🧪 Wachtrij: pijltjes, slepen en verwijderen
-- 🧪 Eerlijke beurtverdeling aan/uit, met rondenummers per aanvrager
-- 🧪 Label "zelf verplaatst" voor nummers die Sean met de hand verzet; een
+- ✅ "Nu bezig" met echte voortgangsbalk en tijd; Pauze/Verder, Stop en Overslaan
+- ✅ Wachtrij: pijltjes, slepen en verwijderen
+- ✅ Eerlijke beurtverdeling aan/uit, met rondenummers per aanvrager
+- ✅ Label "zelf verplaatst" voor nummers die Sean met de hand verzet; een
   klik op het label deelt het nummer weer eerlijk in
 - ✅ Automatische test: Lisa vraagt 3 nummers aan, daarna Tom 1 →
   volgorde Lisa, Tom, Lisa, Lisa
@@ -124,15 +122,15 @@ Keuzes in deze fase:
 - Het label "zelf verplaatst" is alleen te zien als de eerlijke beurt aan staat.
 - Start kan niet terwijl er een nummer bezig is.
 
-## Fase 5 — Achtergrondmuziek en feestnaam 🧪
+## Fase 5 — Achtergrondmuziek en feestnaam ✅
 
-- 🧪 Instelbare YouTube-link (video of afspeellijst) als achtergrondmuziek
-- 🧪 Speelt zacht op het wachtscherm, stopt bij Start, gaat daarna verder waar
+- ✅ Instelbare YouTube-link (video of afspeellijst) als achtergrondmuziek
+- ✅ Speelt zacht op het wachtscherm, stopt bij Start, gaat daarna verder waar
   hij was
-- 🧪 Volumeregelaar en schakelaar onderin de zijbalk
-- 🧪 Instellingen (het tandwiel onderin de zijbalk): feestnaam (standaard
+- ✅ Volumeregelaar en schakelaar onderin de zijbalk
+- ✅ Instellingen (het tandwiel onderin de zijbalk): feestnaam (standaard
   "Karaoke-avond"), eigen logo, muzieklink
-- 🧪 "Nieuwe avond": wist de wachtrij en begint de beurtentelling opnieuw
+- ✅ "Nieuwe avond": wist de wachtrij en begint de beurtentelling opnieuw
 
 Keuzes in deze fase:
 
@@ -191,29 +189,32 @@ Keuzes in deze fase:
 
 ---
 
-## Testlijst: samen doorlopen met Sean
+## Testverslag (15 en 16 november 2026)
 
-Alles hieronder is gebouwd. Claude heeft het getest in een onzichtbare
-Firefox op de echte YouTube, tenzij er "niet getest" bij staat. Samen lopen
-we het in deze volgorde door, met een echt tweede scherm.
+Fase 2 tot en met 5 zijn in één keer gebouwd en daarna samen met Sean stap
+voor stap getest. Alle punten werkten:
 
-1. **Knop "+ Wachtrij"** op de zoekpagina, bij het scrollen en op een video
-   die je bekijkt. Gewoon klikken op een video werkt nog zoals altijd.
-2. **Pop-up**: naam typen, Enter, Escape, omwisselen, dubbele video.
-   *Niet getest:* de lijst met voorgestelde namen.
-3. **Spelerscherm openen**, naar het tweede scherm slepen, vastzetten.
-   *Niet getest:* een echt tweede scherm, en of het venster de volgende keer
-   vanzelf op dat scherm terechtkomt.
-4. **Wachtscherm** op het tweede scherm: leesbaar van een afstand? Lange titel?
-5. **Start**: aftellen, video schermvullend, geluid uit de speaker.
-6. **Pauze, Verder, Stop, Overslaan** en de voortgangsbalk.
-7. **Vanzelf terug** naar het wachtscherm als het nummer is afgelopen.
-8. **Stille laptop**: een YouTube-tabblad op de laptop maakt geen geluid.
-9. **Eerlijke beurt**: Lisa 3 nummers, daarna Tom 1 → Lisa, Tom, Lisa, Lisa.
-10. **Pijltjes en slepen**; label "zelf verplaatst".
-    *Niet getest:* het slepen met de muis.
-11. **Achtergrondmuziek**: link instellen, aan/uit, volume, stopt bij Start en
-    gaat daarna verder.
-12. **Feestnaam en logo** op het wachtscherm.
-13. **Firefox sluiten en weer openen**: wachtrij en instellingen staan er nog.
-14. **Automatisch afspelen** in een gewone Firefox toestaan (zie README).
+1. ✅ Knop "+ Wachtrij" op de zoekpagina, bij het scrollen en op een video
+2. ✅ Pop-up: naam typen, Enter, Escape, omwisselen, dubbele video, namen
+   voorstellen
+3. ✅ Spelerscherm openen, naar het tweede scherm slepen, vastzetten, en de
+   plek onthouden
+4. ✅ Wachtscherm op het tweede scherm, ook met een lange titel
+5. ✅ Start: aftellen, video schermvullend, geluid uit de speaker
+6. ✅ Pauze, Verder, Stop, Overslaan en de voortgangsbalk
+7. ✅ Vanzelf terug naar het wachtscherm als het nummer is afgelopen
+8. ✅ Stille laptop
+9. ✅ Eerlijke beurt: Lisa 3 nummers, daarna Tom 1 → Lisa, Tom, Lisa, Lisa
+10. ✅ Pijltjes, slepen en het label "zelf verplaatst"
+11. ✅ Achtergrondmuziek: link, aan/uit, volume, stopt bij Start en gaat verder
+12. ✅ Feestnaam en logo op het wachtscherm
+13. ✅ Firefox sluiten en weer openen: wachtrij en instellingen staan er nog
+    (getest in de test-Firefox)
+14. ✅ Automatisch afspelen toestaan in een gewone Firefox
+
+Stap 1 tot en met 12 zijn getest in Seans eigen Firefox, met de extensie
+tijdelijk geladen via `about:debugging`. Stap 13 in de test-Firefox, omdat een
+tijdelijk geladen extensie zijn gegevens kwijtraakt als Firefox sluit.
+
+Nog niet vergeleken: de ontwerpafbeeldingen. De map `ontwerp/` was leeg; de
+vormgeving volgt de beschrijving uit de opdracht.

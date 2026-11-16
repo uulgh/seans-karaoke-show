@@ -145,8 +145,9 @@ Keuzes in deze fase:
 - ✅ `.env.voorbeeld` als voorbeeld; `.env` zelf blijft buiten Git
 - ✅ Versie 1.0.0 voor de eerste ondertekende versie
 - ✅ Uitleg in de README: sleutels aanmaken, ondertekenen, installeren
-- ⬜ Sean: account bij addons.mozilla.org, sleutels aanmaken en in `.env` zetten
-- ⬜ Sean: `npm.cmd run onderteken` uitvoeren → een ondertekend `.xpi`-bestand
+- ✅ Sean: account bij addons.mozilla.org, sleutels aanmaken en in `.env` zetten
+- ✅ Sean: `npm.cmd run onderteken` uitvoeren → een ondertekend `.xpi`-bestand
+  (versie 1.0.0, 16 november 2026)
 - ⬜ Sean: het bestand installeren in zijn eigen Firefox en testen dat de
   extensie en de wachtrij er na een herstart nog staan
 

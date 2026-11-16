@@ -37,6 +37,7 @@ Sean heeft **geen programmeerervaring**.
 | `npm test` | Draait de automatische tests uit `tests/` (ingebouwd in Node, niets extra's nodig) |
 | `npm run controle` | Controleert de extensie op fouten (`web-ext lint`) |
 | `npm run pakket` | Maakt een zip van de extensie in `pakketten/` |
+| `npm run onderteken` | Stuurt de extensie naar Mozilla om te ondertekenen (`hulpmiddelen/onderteken.mjs`). **Alleen Sean voert dit uit**; de sleutels staan in `.env` en Claude leest dat bestand niet. |
 
 Draai `npm test` en `npm run controle` vóór elke commit; er mogen geen fouten zijn.
 
@@ -76,6 +77,8 @@ extensie/                 ← alles wat Firefox laadt (geen bouwstap)
                               kijken als YouTube iets heeft veranderd)
     youtube-pagina.js/.css ←  de knop "+ Wachtrij" en de opmaak in YouTube-pagina's
 tests/                    ← automatische tests (komen niet in de extensie)
+hulpmiddelen/             ← scripts voor Sean (ondertekenen); komen niet in de extensie
+.env                      ← de sleutels van Mozilla (niet in Git; voorbeeld: .env.voorbeeld)
 web-ext-config.mjs        ← instellingen van web-ext (o.a. het vaste testprofiel)
 .testprofiel/             ← het Firefox-profiel van `npm start` (niet in Git)
 ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
@@ -83,6 +86,9 @@ ontwerp/                  ← ontwerpafbeeldingen van Sean (optie A, Neonbar)
 
 ## Technische regels
 
+- Het versienummer staat op twee plekken en moet gelijk zijn:
+  `extensie/manifest.json` en `package.json`. Mozilla wil voor elke inzending
+  een nieuw nummer.
 - **Manifest V3**, vaste Gecko-ID `seans-karaoke-show@karafox`. Die ID mag
   nooit meer veranderen, anders is bewaarde data weg.
 - Firefox gebruikt bij MV3 `background.scripts` (geen service worker). Het

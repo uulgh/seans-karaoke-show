@@ -1,6 +1,6 @@
 {
   "name": "seans-karaoke-show",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Firefox-extensie die van je laptop een karaoke-regiepaneel maakt en van een tweede scherm een karaokescherm.",
   "type": "module",
@@ -8,7 +8,8 @@
     "start": "web-ext run",
     "test": "node --test \"tests/**/*.test.js\"",
     "controle": "web-ext lint",
-    "pakket": "web-ext build --overwrite-dest"
+    "pakket": "web-ext build --overwrite-dest",
+    "onderteken": "node hulpmiddelen/onderteken.mjs"
   },
   "devDependencies": {
     "web-ext": "^10.8.0"

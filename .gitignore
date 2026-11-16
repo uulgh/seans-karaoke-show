@@ -8,6 +8,8 @@ web-ext-artifacts/
 # Geheimen: komen NOOIT op GitHub
 .env
 .env.*
+# ... behalve het voorbeeld, daar staan geen echte sleutels in
+!.env.voorbeeld
 *.pem
 *.key
 .amo-upload-uuid

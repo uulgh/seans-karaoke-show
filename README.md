@@ -139,6 +139,64 @@ te drukken.
 | `npm run controle` | Controleert de extensie op fouten |
 | `npm run pakket` | Maakt een zip van de extensie in de map `pakketten/` |
 
+## Ondertekenen bij Mozilla
+
+Een gewone Firefox installeert alleen extensies met een handtekening van
+Mozilla. Die krijg je zo. De extensie komt daarbij **niet** in de winkel van
+Mozilla ("unlisted"); je krijgt alleen een ondertekend bestand terug.
+
+### Eén keer: sleutels aanmaken
+
+1. Ga naar [addons.mozilla.org](https://addons.mozilla.org/nl/developers/) en
+   log in met een Mozilla-account (of maak er gratis een aan).
+2. Ga akkoord met de overeenkomst voor ontwikkelaars als Mozilla daarom
+   vraagt.
+3. Open de pagina voor API-sleutels:
+   <https://addons.mozilla.org/nl/developers/addon/api/key/>
+   (in het menu: Hulpmiddelen → API-sleutels beheren).
+4. Klik op de knop om sleutels aan te maken. Je krijgt er twee: een
+   **JWT issuer** en een **JWT secret**. Laat de pagina open staan.
+5. Maak in de projectmap een kopie van het bestand `.env.voorbeeld` en noem
+   die `.env`.
+6. Open `.env` in Kladblok en plak de twee sleutels achter de `=` tekens:
+
+   ```
+   WEB_EXT_API_KEY=user:12345678:901
+   WEB_EXT_API_SECRET=eenlangerijlettersencijfers
+   ```
+
+7. Bewaar het bestand.
+
+**Deel deze sleutels met niemand.** Het bestand `.env` komt niet op GitHub.
+Is een sleutel toch ergens terechtgekomen waar hij niet hoort, maak dan op
+dezelfde pagina nieuwe sleutels aan; de oude werken dan niet meer.
+
+### Elke nieuwe versie: ondertekenen
+
+```bash
+npm.cmd run onderteken
+```
+
+(Op macOS en Linux: `npm run onderteken`.)
+
+Het commando controleert de extensie eerst zelf, stuurt hem dan naar Mozilla
+en wacht op de handtekening. Dat duurt meestal een paar minuten. Daarna staat
+er in de map `pakketten/` een bestand dat eindigt op `.xpi`.
+
+Elke inzending heeft een nieuw versienummer nodig. Dat nummer staat in
+`extensie/manifest.json` (en in `package.json`).
+
+### Installeren in je eigen Firefox
+
+1. Heb je de extensie nog tijdelijk geladen via `about:debugging`? Sluit
+   Firefox dan eerst en open hem opnieuw; de tijdelijke versie is dan weg.
+2. Sleep het `.xpi`-bestand uit de map `pakketten/` in een Firefox-venster.
+3. Klik op **Toevoegen**.
+
+De extensie blijft nu staan, ook na een herstart. Een nieuwere versie
+installeer je er op dezelfde manier overheen; de wachtrij en de instellingen
+blijven dan bewaard.
+
 ## Als YouTube iets verandert
 
 YouTube past zijn pagina's geregeld aan. Verdwijnt de knop "+ Wachtrij" of

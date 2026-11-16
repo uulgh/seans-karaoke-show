@@ -138,11 +138,24 @@ Keuzes in deze fase:
   YouTube zelf door naar de volgende video.
 - Een logo mag hooguit 2 MB zijn.
 
-## Fase 6 — Ondertekenen bij Mozilla (unlisted) ⬜
+## Fase 6 — Ondertekenen bij Mozilla (unlisted) 🔨
 
-- Account bij addons.mozilla.org, API-sleutels veilig bewaren (nooit in de code)
-- `web-ext sign --channel unlisted` → een ondertekend `.xpi`-bestand
-- Dat bestand is in elke gewone Firefox te installeren
+- ✅ Commando `npm.cmd run onderteken` (`hulpmiddelen/onderteken.mjs`): leest
+  de sleutels uit `.env`, controleert de extensie en stuurt hem naar Mozilla
+- ✅ `.env.voorbeeld` als voorbeeld; `.env` zelf blijft buiten Git
+- ✅ Versie 1.0.0 voor de eerste ondertekende versie
+- ✅ Uitleg in de README: sleutels aanmaken, ondertekenen, installeren
+- ⬜ Sean: account bij addons.mozilla.org, sleutels aanmaken en in `.env` zetten
+- ⬜ Sean: `npm.cmd run onderteken` uitvoeren → een ondertekend `.xpi`-bestand
+- ⬜ Sean: het bestand installeren in zijn eigen Firefox en testen dat de
+  extensie en de wachtrij er na een herstart nog staan
+
+Keuzes in deze fase:
+
+- Nog geen automatische updates: een nieuwe versie onderteken je opnieuw en
+  installeer je er zelf overheen. Automatisch bijwerken hoort bij fase 7.
+- Het ondertekende bestand komt niet in Git, maar in de release van fase 7.
+- Sean stuurt de extensie zelf in; Claude ziet de sleutels niet.
 
 ## Fase 7 — Installatiescripts en GitHub-release ⬜
 
